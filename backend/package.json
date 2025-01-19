@@ -1,0 +1,25 @@
+{
+  "name": "cafe-tala-backend",
+  "version": "1.0.0",
+  "description": "Backend service for Cafe Tala",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.3"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "jest": "^26.6.3",
+    "supertest": "^6.0.1"
+  },
+  "author": "",
+  "license": "ISC"
+}

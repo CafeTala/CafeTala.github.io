@@ -1,0 +1,17 @@
+{
+  "authentication": "احراز هویت",
+  "phone_number": "شماره تلفن",
+  "otp": "کد تایید",
+  "send_otp": "ارسال کد",
+  "login": "ورود",
+  "guest_login": "ورود مهمان",
+  "need_help": "نیاز به کمک دارید؟ با تیم پشتیبانی ما تماس بگیرید.",
+  "all_rights_reserved": "تمامی حقوق محفوظ است.",
+  "otp_sent_success": "کد تایید با موفقیت ارسال شد.",
+  "otp_sent_fail": "ارسال کد تایید ناموفق بود.",
+  "login_success": "ورود با موفقیت انجام شد!",
+  "login_fail": "ورود ناموفق بود.",
+  "guest_login_success": "ورود مهمان با موفقیت انجام شد!",
+  "guest_login_fail": "ورود مهمان ناموفق بود.",
+  "welcome_message": "خوش آمدید"
+}

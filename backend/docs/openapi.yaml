@@ -1,0 +1,507 @@
+openapi: 3.0.0
+info:
+  title: Cafe Tala API
+  version: 1.0.0
+  description: API documentation for Cafe Tala backend services.
+servers:
+  - url: http://localhost:3000
+    description: Local server
+paths:
+  /auth/guest:
+    post:
+      summary: Get Token for Guest Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                deviceId:
+                  type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                  guest:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+  /auth/otp:
+    post:
+      summary: Send OTP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone:
+                  type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /auth/login:
+    post:
+      summary: User Login/Signup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone:
+                  type: string
+                otp:
+                  type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      phone:
+                        type: string
+                      preferences:
+                        type: object
+                        properties:
+                          favoriteCurrencies:
+                            type: array
+                            items:
+                              type: string
+                          primaryCurrency:
+                            type: string
+  /products:
+    get:
+      summary: Get Product List
+      parameters:
+        - name: currency
+          in: query
+          schema:
+            type: string
+        - name: storeId
+          in: query
+          schema:
+            type: string
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: rating
+          in: query
+          schema:
+            type: number
+        - name: limit
+          in: query
+          schema:
+            type: number
+        - name: skip
+          in: query
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    price:
+                      type: object
+                      properties:
+                        gold:
+                          type: number
+                        fiat:
+                          type: number
+                    image:
+                      type: string
+                    rating:
+                      type: object
+                      properties:
+                        average:
+                          type: number
+                        reviews:
+                          type: number
+                    store:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+  /products/{id}:
+    get:
+      summary: Get Product Details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  price:
+                    type: object
+                    properties:
+                      gold:
+                        type: number
+                      fiat:
+                        type: number
+                  image:
+                    type: string
+                  rating:
+                    type: object
+                    properties:
+                      average:
+                        type: number
+                      reviews:
+                        type: number
+                      comments:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            star:
+                              type: number
+                            text:
+                              type: string
+                            likes:
+                              type: number
+                      details:
+                        type: object
+                        properties:
+                          fiveStar:
+                            type: number
+                          fourStar:
+                            type: number
+                          threeStar:
+                            type: number
+                          twoStar:
+                            type: number
+                          oneStar:
+                            type: number
+                  store:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+  /stores:
+    get:
+      summary: Get Store List
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    type:
+                      type: string
+                    image:
+                      type: string
+                    location:
+                      type: object
+                      properties:
+                        latitude:
+                          type: number
+                        longitude:
+                          type: number
+                    supportedCurrencies:
+                      type: array
+                      items:
+                        type: string
+                    contact:
+                      type: object
+                      properties:
+                        phone:
+                          type: string
+                        email:
+                          type: string
+                        socialLinks:
+                          type: object
+                          properties:
+                            facebook:
+                              type: string
+                            instagram:
+                              type: string
+                            twitter:
+                              type: string
+  /stores/{id}:
+    get:
+      summary: Get Store Details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  type:
+                    type: string
+                  image:
+                    type: string
+                  location:
+                    type: object
+                    properties:
+                      latitude:
+                        type: number
+                      longitude:
+                        type: number
+                  supportedCurrencies:
+                    type: array
+                    items:
+                      type: string
+                  contact:
+                    type: object
+                    properties:
+                      phone:
+                        type: string
+                      email:
+                        type: string
+                      socialLinks:
+                        type: object
+                        properties:
+                          facebook:
+                            type: string
+                          instagram:
+                            type: string
+                          twitter:
+                            type: string
+  /currencies:
+    get:
+      summary: Get Currencies
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    symbol:
+                      type: string
+                    type:
+                      type: string
+                    currentRate:
+                      type: number
+  /users/preferences:
+    put:
+      summary: Update User Preferences
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                favoriteCurrencies:
+                  type: array
+                  items:
+                    type: string
+                primaryCurrency:
+                  type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        phone:
+          type: string
+        preferences:
+          type: object
+          properties:
+            favoriteCurrencies:
+              type: array
+              items:
+                type: string
+            primaryCurrency:
+              type: string
+    Store:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        image:
+          type: string
+        location:
+          type: object
+          properties:
+            latitude:
+              type: number
+            longitude:
+              type: number
+        supportedCurrencies:
+          type: array
+          items:
+            type: string
+        contact:
+          type: object
+          properties:
+            phone:
+              type: string
+            email:
+              type: string
+            socialLinks:
+              type: object
+              properties:
+                facebook:
+                  type: string
+                instagram:
+                  type: string
+                twitter:
+                  type: string
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: object
+          properties:
+            gold:
+              type: number
+            fiat:
+              type: number
+        image:
+          type: string
+        rating:
+          type: object
+          properties:
+            average:
+              type: number
+            reviews:
+              type: number
+            comments:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  star:
+                    type: number
+                  text:
+                    type: string
+                  likes:
+                    type: number
+            details:
+              type: object
+              properties:
+                fiveStar:
+                  type: number
+                fourStar:
+                  type: number
+                threeStar:
+                  type: number
+                twoStar:
+                  type: number
+                oneStar:
+                  type: number
+        store:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+    Currency:
+      type: object
+      properties:
+        name:
+          type: string
+        symbol:
+          type: string
+        type:
+          type: string
+        currentRate:
+          type: number

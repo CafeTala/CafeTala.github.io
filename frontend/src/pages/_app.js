@@ -4,7 +4,7 @@ import '../styles/fonts.css'; // Add this import
 console.log('NEXT_PUBLIC_MOCK_AXIOS:', process.env.NEXT_PUBLIC_MOCK_AXIOS);
 
 if (process.env.NEXT_PUBLIC_MOCK_AXIOS === 'true') {
-  import('../setupProxy').then(() => {
+  import('../mock').then(() => {
     console.log('Mocking enabled');
   });
 }

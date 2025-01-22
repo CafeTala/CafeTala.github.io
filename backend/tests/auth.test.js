@@ -28,4 +28,20 @@ describe('Authentication APIs', () => {
     expect(res.body.user).toHaveProperty('id');
     expect(res.body.user).toHaveProperty('phone');
   });
+
+  it('should return error for invalid OTP', async () => {
+    const res = await request(app)
+      .post('/auth/login')
+      .send({ phone: '1234567890', otp: '000000' });
+    expect(res.statusCode).toEqual(400);
+    expect(res.body).toHaveProperty('message', 'Invalid OTP');
+  });
+
+  it('should return error for missing fields', async () => {
+    const res = await request(app)
+      .post('/auth/login')
+      .send({ phone: '1234567890' });
+    expect(res.statusCode).toEqual(400);
+    expect(res.body).toHaveProperty('message');
+  });
 });

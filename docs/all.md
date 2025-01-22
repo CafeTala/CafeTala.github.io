@@ -42,6 +42,8 @@ contact: JSON
   }
 }
 
+openHours: JSON (object with times for each day of the week)
+
 createdAt: DateTime
 
 updatedAt: DateTime
@@ -175,6 +177,15 @@ Output:
         "instagram": "string",
         "twitter": "string"
       }
+    },
+    "openHours": {
+      "monday": "string",
+      "tuesday": "string",
+      "wednesday": "string",
+      "thursday": "string",
+      "friday": "string",
+      "saturday": "string",
+      "sunday": "string"
     }
   }
 ]
@@ -203,6 +214,15 @@ Output:
       "instagram": "string",
       "twitter": "string"
     }
+  },
+  "openHours": {
+    "monday": "string",
+    "tuesday": "string",
+    "wednesday": "string",
+    "thursday": "string",
+    "friday": "string",
+    "saturday": "string",
+    "sunday": "string"
   }
 }
 

@@ -49,7 +49,8 @@ cafe-tala/
 │   │   ├── pages/
 │   │   │   ├── HomePage.js
 │   │   │   ├── StoreDetailsPage.js
-│   │   │   └── ProductDetailsPage.js
+│   │   │   ├── ProductDetailsPage.js
+│   │   │   └── auth.js
 │   │   ├── App.js
 │   │   ├── index.js
 │   │   └── styles/

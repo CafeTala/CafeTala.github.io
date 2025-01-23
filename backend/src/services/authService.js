@@ -31,6 +31,7 @@ exports.sendOtp = async (phone) => {
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
   const expiresAt = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes from now
   await OTP.create({ phone, otp, expiresAt });
+  console.log(`Generated OTP: ${otp}, Expires At: ${expiresAt}`);
   console.log(`Sending OTP ${otp} to phone: ${phone}`);
   return true;
 };

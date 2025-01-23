@@ -2,6 +2,7 @@ require('dotenv').config(); // Add this line to load environment variables
 const request = require('supertest');
 const app = require('../src/app'); // Assuming app.js exports the Express app
 const db = require('../src/models');
+const { OTP } = require('../src/models'); // Add this line to import OTP model
 
 describe('Authentication APIs', () => {
   beforeAll(async () => {
@@ -44,10 +45,19 @@ describe('Authentication APIs', () => {
 
   it('should login/signup user', async (done) => {
     console.log('Running test: should login/signup user');
+    
+    // Generate and store OTP for the test
+    const phone = '1234567890';
+    const otp = '123456';
+    await OTP.create({ phone, otp, expiresAt: new Date(Date.now() + 5 * 60 * 1000) });
+
     const res = await request(app)
       .post('/auth/login')
-      .send({ phone: '1234567890', otp: '123456' });
+      .send({ phone, otp });
     console.log('Login Response:', res.body); // Add log
+    if (res.statusCode !== 200) {
+      console.error('Error Response:', res.body);
+    }
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty('token');
     expect(res.body.user).toHaveProperty('id');

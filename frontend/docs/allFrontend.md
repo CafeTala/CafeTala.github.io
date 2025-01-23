@@ -33,6 +33,15 @@ Renders a list of products.
 #### Props
 - **products**: Array - An array of product objects to display.
 
+### StoreCard.js
+
+#### Description
+Renders a card for displaying store information.
+
+#### Props
+- **store**: Object - The store object containing store details.
+- **onClick**: Function - The function to call when the card is clicked.
+
 ## Pages
 
 ### HomePage.js
@@ -44,6 +53,14 @@ Renders the homepage with a map and a list of stores.
 - Header
 - Footer
 - StoreList
+
+### StoreListPage.js
+
+#### Description
+Renders a list of stores.
+
+#### Components Used
+- StoreCard
 
 ### StoreDetailsPage.js
 
@@ -83,6 +100,11 @@ Contains the main styles for the application.
 
 #### Description
 Contains the theme-specific styles for the application.
+
+### fonts.css
+
+#### Description
+Contains the font-face definitions for the application.
 
 ## Mocks
 

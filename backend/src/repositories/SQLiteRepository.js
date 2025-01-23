@@ -32,7 +32,11 @@ class SQLiteRepository extends IRepository {
     return new Promise((resolve, reject) => {
       this.db.run(`INSERT INTO ${this.tableName} (${keys}) VALUES (${values})`, Object.values(data), function (err) {
         if (err) reject(err);
-        resolve({ id: this.lastID });
+        const id = this.lastID;
+        this.db.get(`SELECT * FROM ${this.tableName} WHERE id = ?`, [id], (err, row) => {
+          if (err) reject(err);
+          resolve(row);
+        });
       });
     });
   }

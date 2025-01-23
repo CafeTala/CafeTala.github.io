@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
 const storeRoutes = require('./routes/storeRoutes');
-// ...existing code...
 
 dotenv.config();
 
@@ -30,3 +29,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+module.exports = app;

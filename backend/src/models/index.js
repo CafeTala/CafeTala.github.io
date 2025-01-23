@@ -8,12 +8,16 @@ const sequelize = new Sequelize({
 });
 
 const User = require('./User')(sequelize, Sequelize.DataTypes);
+const OTP = require('./OTP')(sequelize, Sequelize.DataTypes);
 
-// Add more models here as needed
+// Set up associations
+User.hasMany(OTP, { foreignKey: 'userId' });
+OTP.belongsTo(User, { foreignKey: 'userId' });
 
 const db = {
   sequelize,
   User,
+  OTP,
   // Add more models here as needed
 };
 

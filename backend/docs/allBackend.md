@@ -704,6 +704,61 @@ Handles the business logic for store-related operations.
   }
   ```
 
+### userService.js
+
+#### Description
+Handles the business logic for user-related operations.
+
+#### Functions
+
+##### getUserDetails
+- **Description**: Fetches detailed information about a specific user.
+- **Input**: 
+  ```json
+  {
+    "id": "string"
+  }
+  ```
+- **Output**: 
+  ```json
+  {
+    "id": "string",
+    "phone": "string",
+    "preferences": {
+      "favoriteCurrencies": ["string"],
+      "primaryCurrency": "string"
+    },
+    "createdAt": "DateTime",
+    "updatedAt": "DateTime"
+  }
+  ```
+
+##### updateUserPreferences
+- **Description**: Updates the preferences of a specific user.
+- **Input**: 
+  ```json
+  {
+    "id": "string",
+    "preferences": {
+      "favoriteCurrencies": ["string"],
+      "primaryCurrency": "string"
+    }
+  }
+  ```
+- **Output**: 
+  ```json
+  {
+    "id": "string",
+    "phone": "string",
+    "preferences": {
+      "favoriteCurrencies": ["string"],
+      "primaryCurrency": "string"
+    },
+    "createdAt": "DateTime",
+    "updatedAt": "DateTime"
+  }
+  ```
+
 ## Utils
 
 ### db.js

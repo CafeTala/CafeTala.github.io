@@ -13,7 +13,40 @@ async function initializeSQLiteDatabase(dbPath) {
     )
   `;
 
-  // Add more table creation queries here as needed
+  const createStoresTable = `
+    CREATE TABLE IF NOT EXISTS stores (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      type TEXT NOT NULL,
+      image TEXT,
+      location TEXT,
+      supportedCurrencies TEXT,
+      contact TEXT,
+      openHours TEXT
+    )
+  `;
+
+  const createProductsTable = `
+    CREATE TABLE IF NOT EXISTS products (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      description TEXT,
+      price TEXT,
+      image TEXT,
+      storeId INTEGER,
+      FOREIGN KEY (storeId) REFERENCES stores(id)
+    )
+  `;
+
+  const createCurrenciesTable = `
+    CREATE TABLE IF NOT EXISTS currencies (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      symbol TEXT NOT NULL,
+      type TEXT NOT NULL,
+      currentRate REAL
+    )
+  `;
 
   return new Promise((resolve, reject) => {
     db.serialize(() => {
@@ -21,7 +54,17 @@ async function initializeSQLiteDatabase(dbPath) {
         if (err) reject(err);
       });
 
-      // Run more table creation queries here as needed
+      db.run(createStoresTable, (err) => {
+        if (err) reject(err);
+      });
+
+      db.run(createProductsTable, (err) => {
+        if (err) reject(err);
+      });
+
+      db.run(createCurrenciesTable, (err) => {
+        if (err) reject(err);
+      });
 
       resolve();
     });

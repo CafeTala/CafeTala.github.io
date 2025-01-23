@@ -18,7 +18,7 @@ async function initializeDatabase() {
     await mongoose.connect(config.dbUri, { useNewUrlParser: true, useUnifiedTopology: true });
     console.log('Connected to MongoDB');
   } else if (config.dbChoice === 'sqlite') {
-    await db.sequelize.sync();
+    await db.sequelize.sync({ force: true });
     console.log('SQLite tables created');
   } else {
     throw new Error('Invalid database choice');

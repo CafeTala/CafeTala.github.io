@@ -17,16 +17,18 @@ cafe-tala/
 │   │   │   ├── storeModel.js
 │   │   │   ├── productModel.js
 │   │   │   └── currencyModel.js
-│   │   ├── routes/
-│   │   │   ├── authRoutes.js
-│   │   │   ├── productRoutes.js
-│   │   │   └── storeRoutes.js
+│   │   ├── repositories/
+│   │   │   ├── UserRepository.js
+│   │   │   ├── SQLiteRepository.js
+│   │   │   └── IRepository.js
 │   │   ├── services/
 │   │   │   ├── authService.js
 │   │   │   ├── productService.js
-│   │   │   └── storeService.js
+│   │   │   ├── storeService.js
+│   │   │   └── UserService.js
 │   │   ├── utils/
 │   │   │   ├── db.js
+│   │   │   ├── dbInitializer.js
 │   │   │   └── helpers.js
 │   │   └── app.js
 │   ├── tests/
@@ -81,7 +83,12 @@ This project is a full-stack application for Cafe Tala, providing APIs for user 
 3. Set up environment variables:
     Create a `.env` file in the `backend` directory and add the necessary environment variables.
 
-4. Run the backend application:
+4. Initialize the SQLite database:
+    ```sh
+    node src/utils/dbInitializer.js
+    ```
+
+5. Run the backend application:
     ```sh
     npm start
     ```
@@ -98,7 +105,10 @@ This project is a full-stack application for Cafe Tala, providing APIs for user 
     npm install
     ```
 
-3. Run the frontend application:
+3. Set up environment variables:
+    Create a `.env` file in the `frontend` directory and add the necessary environment variables.
+
+4. Run the frontend application:
     ```sh
     npm run dev
     ```

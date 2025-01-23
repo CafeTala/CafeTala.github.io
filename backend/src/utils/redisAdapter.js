@@ -2,7 +2,7 @@ const redis = require('redis');
 const { promisify } = require('util');
 
 const client = redis.createClient({
-  port: 6379 // Default Redis port
+  port: 6379
 });
 
 client.on('error', (err) => {
@@ -34,9 +34,28 @@ async function isRedisUp() {
   }
 }
 
+// Ensure Redis client is connected before performing operations
+async function ensureConnected() {
+  if (!client.connected) {
+    await new Promise((resolve, reject) => {
+      client.once('ready', resolve);
+      client.once('error', reject);
+    });
+  }
+}
+
 module.exports = {
-  get: getAsync,
-  setex: setexAsync,
-  del: delAsync,
+  get: async (key) => {
+    await ensureConnected();
+    return getAsync(key);
+  },
+  setex: async (key, ttl, value) => {
+    await ensureConnected();
+    return setexAsync(key, ttl, value);
+  },
+  del: async (key) => {
+    await ensureConnected();
+    return delAsync(key);
+  },
   isRedisUp
 };

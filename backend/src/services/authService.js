@@ -13,6 +13,7 @@ exports.generateGuestToken = (deviceId) => {
 };
 
 exports.verifyOtp = async (phone, otp) => {
+  await redisAdapter.ensureConnected(); // Ensure Redis is connected
   const storedOtp = await redisAdapter.get(phone);
   if (storedOtp === otp) {
     await redisAdapter.del(phone); // Remove OTP after verification
@@ -23,6 +24,7 @@ exports.verifyOtp = async (phone, otp) => {
 };
 
 exports.sendOtp = async (phone) => {
+  await redisAdapter.ensureConnected(); // Ensure Redis is connected
   // Generate a random 6-digit OTP
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
   await redisAdapter.setex(phone, 300, otp); // Save OTP with a TTL of 300 seconds (5 minutes)

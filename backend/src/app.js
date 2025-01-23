@@ -16,7 +16,10 @@ mongoose.connect(process.env.DB_URI, {
   useUnifiedTopology: true,
 })
 .then(() => console.log('Database connected'))
-.catch((error) => console.error('Database connection error:', error));
+.catch((error) => {
+  console.error('Database connection error:', error);
+  process.exit(1); // Exit the process if the database connection fails
+});
 
 // Routes
 app.use('/auth', authRoutes);

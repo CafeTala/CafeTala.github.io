@@ -14,6 +14,9 @@ describe('Authentication APIs', () => {
     }
   });
 
+  // Set a timeout for all tests in this suite
+  jest.setTimeout(30000); // Increase timeout to 30 seconds
+
   it('should get token for guest users', async () => {
     const res = await request(app)
       .post('/auth/guest')

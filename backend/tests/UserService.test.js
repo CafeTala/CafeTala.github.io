@@ -3,6 +3,7 @@ const MongoRepository = require('../src/repositories/MongoRepository');
 const RedisRepository = require('../src/repositories/RedisRepository');
 const SQLiteRepository = require('../src/repositories/SQLiteRepository');
 const User = require('../src/models/User');
+const config = require('../src/config');
 
 jest.mock('../src/repositories/MongoRepository');
 jest.mock('../src/repositories/RedisRepository');
@@ -19,6 +20,9 @@ describe('UserService', () => {
     redisRepo = new RedisRepository();
     sqliteRepo = new SQLiteRepository(':memory:', 'users');
     userService = new UserService(mongoRepo, redisRepo, sqliteRepo);
+
+    // Ensure the correct repository is used based on the configuration
+    config.dbChoice = 'sqlite';
   });
 
   afterEach(() => {
@@ -40,13 +44,13 @@ describe('UserService', () => {
     const userId = '123';
     const userData = { id: userId, name: 'John Doe' };
     redisRepo.getById.mockResolvedValue(null);
-    mongoRepo.getById.mockResolvedValue(userData);
+    sqliteRepo.getById.mockResolvedValue(userData);
     redisRepo.create.mockResolvedValue(null); // Ensure mock resolves
 
     const result = await userService.getUserById(userId);
 
     expect(redisRepo.getById).toHaveBeenCalledWith(userId);
-    expect(mongoRepo.getById).toHaveBeenCalledWith(userId);
+    expect(sqliteRepo.getById).toHaveBeenCalledWith(userId);
     expect(redisRepo.create).toHaveBeenCalledWith(userId, userData);
     expect(result).toEqual(userData);
   });
@@ -54,12 +58,12 @@ describe('UserService', () => {
   test('should create a new user and cache it in Redis', async () => {
     const userData = { name: 'John Doe' };
     const createdUserData = { id: '123', ...userData };
-    mongoRepo.create.mockResolvedValue(createdUserData);
+    sqliteRepo.create.mockResolvedValue(createdUserData);
     redisRepo.create.mockResolvedValue(null); // Ensure mock resolves
 
     const result = await userService.createUser(userData);
 
-    expect(mongoRepo.create).toHaveBeenCalledWith(userData);
+    expect(sqliteRepo.create).toHaveBeenCalledWith(userData);
     expect(redisRepo.create).toHaveBeenCalledWith(createdUserData.id, createdUserData);
     expect(result).toEqual(createdUserData);
   });

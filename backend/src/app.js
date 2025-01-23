@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const cors = require('cors'); // Add this line
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
 const storeRoutes = require('./routes/storeRoutes');
@@ -11,6 +12,7 @@ dotenv.config(); // Ensure this is called before using any environment variables
 
 const app = express();
 app.use(express.json());
+app.use(cors({ origin: config.corsOrigin })); // Add this line
 
 // Database initialization
 async function initializeDatabase() {

@@ -19,7 +19,7 @@ describe('Authentication APIs', () => {
   // Set a timeout for all tests in this suite
   jest.setTimeout(60000); // Increase timeout to 60 seconds
 
-  it('should get token for guest users', async () => {
+  it('should get token for guest users', async (done) => {
     console.log('Running test: should get token for guest users');
     const res = await request(app)
       .post('/auth/guest')
@@ -28,9 +28,10 @@ describe('Authentication APIs', () => {
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty('token');
     expect(res.body.guest).toHaveProperty('id');
-  });
+    done();
+  }, 10000); // Set individual test timeout to 10 seconds
 
-  it('should send OTP', async () => {
+  it('should send OTP', async (done) => {
     console.log('Running test: should send OTP');
     const res = await request(app)
       .post('/auth/otp')
@@ -38,9 +39,10 @@ describe('Authentication APIs', () => {
     console.log('Send OTP Response:', res.body); // Add log
     expect(res.statusCode).toEqual(200);
     expect(res.body.message).toEqual('OTP sent successfully.');
-  });
+    done();
+  }, 10000); // Set individual test timeout to 10 seconds
 
-  it('should login/signup user', async () => {
+  it('should login/signup user', async (done) => {
     console.log('Running test: should login/signup user');
     const res = await request(app)
       .post('/auth/login')
@@ -50,9 +52,10 @@ describe('Authentication APIs', () => {
     expect(res.body).toHaveProperty('token');
     expect(res.body.user).toHaveProperty('id');
     expect(res.body.user).toHaveProperty('phone');
-  });
+    done();
+  }, 10000); // Set individual test timeout to 10 seconds
 
-  it('should return error for invalid OTP', async () => {
+  it('should return error for invalid OTP', async (done) => {
     console.log('Running test: should return error for invalid OTP');
     const res = await request(app)
       .post('/auth/login')
@@ -60,9 +63,10 @@ describe('Authentication APIs', () => {
     console.log('Invalid OTP Response:', res.body); // Add log
     expect(res.statusCode).toEqual(400);
     expect(res.body).toHaveProperty('message', 'Invalid OTP');
-  });
+    done();
+  }, 10000); // Set individual test timeout to 10 seconds
 
-  it('should return error for missing fields', async () => {
+  it('should return error for missing fields', async (done) => {
     console.log('Running test: should return error for missing fields');
     const res = await request(app)
       .post('/auth/login')
@@ -70,5 +74,6 @@ describe('Authentication APIs', () => {
     console.log('Missing Fields Response:', res.body); // Add log
     expect(res.statusCode).toEqual(400);
     expect(res.body).toHaveProperty('message');
-  });
+    done();
+  }, 10000); // Set individual test timeout to 10 seconds
 });

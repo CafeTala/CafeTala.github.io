@@ -5,7 +5,7 @@ const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
 const storeRoutes = require('./routes/storeRoutes');
 
-dotenv.config();
+dotenv.config(); // Ensure this is called before using any environment variables
 
 const app = express();
 app.use(express.json());

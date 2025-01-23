@@ -8,6 +8,10 @@ exports.generateToken = (userId) => {
   return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
 };
 
+exports.generateGuestToken = (deviceId) => {
+  return jwt.sign({ id: deviceId }, process.env.JWT_SECRET, { expiresIn: '1h' });
+};
+
 exports.verifyOtp = async (phone, otp) => {
   const storedOtp = await redisAdapter.get(phone);
   if (storedOtp === otp) {
@@ -24,8 +28,4 @@ exports.sendOtp = async (phone) => {
   await redisAdapter.setex(phone, 300, otp); // Save OTP with a TTL of 300 seconds (5 minutes)
   console.log(`Sending OTP ${otp} to phone: ${phone}`);
   return true;
-};
-
-exports.generateGuestToken = (deviceId) => {
-  return jwt.sign({ id: deviceId }, process.env.JWT_SECRET, { expiresIn: '1h' });
 };

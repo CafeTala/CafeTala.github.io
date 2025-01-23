@@ -8,11 +8,23 @@ client.on('error', (err) => {
 });
 
 const getAsync = promisify(client.get).bind(client);
-const setexAsync = promisify(client.setEx).bind(client); // Correct method name is setEx
+const setexAsync = promisify(client.setEx).bind(client);
 const delAsync = promisify(client.del).bind(client);
+const pingAsync = promisify(client.ping).bind(client);
+
+async function isRedisUp() {
+  try {
+    await pingAsync();
+    return true;
+  } catch (err) {
+    console.error('Redis ping error:', err);
+    return false;
+  }
+}
 
 module.exports = {
   get: getAsync,
   setex: setexAsync,
-  del: delAsync
+  del: delAsync,
+  isRedisUp
 };

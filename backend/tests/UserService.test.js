@@ -11,7 +11,7 @@ describe('UserService', () => {
 
   beforeEach(() => {
     sqliteRepo = new SQLiteRepository(':memory:', 'users');
-    userService = new UserService(null, null, sqliteRepo);
+    userService = new UserService(null, sqliteRepo);
 
     // Ensure the correct repository is used based on the configuration
     config.dbChoice = 'sqlite';
@@ -40,34 +40,6 @@ describe('UserService', () => {
     const result = await userService.createUser(userData);
 
     expect(sqliteRepo.create).toHaveBeenCalledWith(userData);
-    expect(result).toEqual(createdUserData);
-  });
-
-  test('should get user by id from database if not in Redis and cache it', async () => {
-    const userId = '123';
-    const userData = { id: userId, name: 'John Doe' };
-    redisRepo.getById.mockResolvedValue(null);
-    sqliteRepo.getById.mockResolvedValue(userData);
-    redisRepo.create.mockResolvedValue(null); // Ensure mock resolves
-
-    const result = await userService.getUserById(userId);
-
-    expect(redisRepo.getById).toHaveBeenCalledWith(userId);
-    expect(sqliteRepo.getById).toHaveBeenCalledWith(userId);
-    expect(redisRepo.create).toHaveBeenCalledWith(userId, userData);
-    expect(result).toEqual(userData);
-  });
-
-  test('should create a new user and cache it in Redis', async () => {
-    const userData = { name: 'John Doe' };
-    const createdUserData = { id: '123', ...userData };
-    sqliteRepo.create.mockResolvedValue(createdUserData);
-    redisRepo.create.mockResolvedValue(null); // Ensure mock resolves
-
-    const result = await userService.createUser(userData);
-
-    expect(sqliteRepo.create).toHaveBeenCalledWith(userData);
-    expect(redisRepo.create).toHaveBeenCalledWith(createdUserData.id, createdUserData);
     expect(result).toEqual(createdUserData);
   });
 

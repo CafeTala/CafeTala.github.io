@@ -1,9 +1,8 @@
 const config = require('../config'); // Assuming you have a config file
 
 class UserService {
-  constructor(mongoRepo, redisRepo, sqliteRepo) {
+  constructor(mongoRepo, sqliteRepo) {
     this.mongoRepo = mongoRepo;
-    this.redisRepo = redisRepo;
     this.sqliteRepo = sqliteRepo;
     this.dbRepo = this.getRepository();
   }
@@ -20,13 +19,7 @@ class UserService {
   }
 
   async getUserById(id) {
-    let data = await this.redisRepo.getById(id);
-    if (!data) {
-      data = await this.dbRepo.getById(id);
-      if (data) {
-        await this.redisRepo.create(id, data);
-      }
-    }
+    const data = await this.dbRepo.getById(id);
     return data;
   }
 
@@ -36,21 +29,16 @@ class UserService {
 
   async createUser(data) {
     const createdData = await this.dbRepo.create(data);
-    if (createdData && createdData.id) {
-      await this.redisRepo.create(createdData.id, createdData);
-    }
     return createdData;
   }
 
   async updateUser(id, data) {
     const updatedData = await this.dbRepo.update(id, data);
-    await this.redisRepo.update(id, updatedData);
     return updatedData;
   }
 
   async deleteUser(id) {
     await this.dbRepo.delete(id);
-    await this.redisRepo.delete(id);
   }
 }
 

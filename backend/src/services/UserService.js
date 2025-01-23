@@ -1,4 +1,3 @@
-const config = require('../config');
 const UserRepository = require('../repositories/UserRepository');
 
 class UserService {

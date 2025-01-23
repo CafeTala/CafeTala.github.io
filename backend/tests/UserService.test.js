@@ -1,50 +1,42 @@
 const UserService = require('../src/services/UserService');
-const SQLiteRepository = require('../src/repositories/SQLiteRepository');
+const db = require('../src/models');
 const config = require('../src/config');
 
 describe('UserService', () => {
   let userService;
-  let sqliteRepo;
 
-  beforeEach(async () => {
-    sqliteRepo = new SQLiteRepository(':memory:', 'users');
-    userService = new UserService(null, sqliteRepo);
-
+  beforeAll(async () => {
     // Ensure the correct repository is used based on the configuration
     config.dbChoice = 'sqlite';
 
-    // Create the users table
-    await sqliteRepo.createTable();
+    // Initialize the database and sync models
+    await db.sequelize.sync();
+    userService = new UserService();
   });
 
-  afterEach(() => {
+  beforeEach(async () => {
+    // Clear the database before each test
+    await db.User.destroy({ where: {}, truncate: true });
+  });
+
+  afterAll(async () => {
     // Close the database connection
-    sqliteRepo.db.close();
+    await db.sequelize.close();
   });
 
   test('should get user by id from database', async () => {
-    const userId = 1;
-    const userData = { id: userId, name: 'John Doe', email: 'john@example.com', phone: '1234567890', preferences: JSON.stringify({ favoriteCurrencies: [], primaryCurrency: '' }) };
+    const userData = { name: 'John Doe', email: 'john@example.com', phone: '1234567890', preferences: { favoriteCurrencies: [], primaryCurrency: '' } };
 
     // Insert a user into the database
-    await new Promise((resolve, reject) => {
-      sqliteRepo.db.run(`
-        INSERT INTO users (name, email, phone, preferences)
-        VALUES (?, ?, ?, ?)
-      `, [userData.name, userData.email, userData.phone, userData.preferences], function (err) {
-        if (err) reject(err);
-        userData.id = this.lastID;
-        resolve();
-      });
-    });
+    const createdUser = await userService.createUser(userData);
 
-    const result = await userService.getUserById(userId);
+    const result = await userService.getUserById(createdUser.id);
 
-    expect(result).toEqual(userData);
+    expect(result).toMatchObject(userData);
   });
 
   test('should create a new user', async () => {
-    const userData = { name: 'John Doe', email: 'john@example.com', phone: '1234567890', preferences: JSON.stringify({ favoriteCurrencies: [], primaryCurrency: '' }) };
+    const userData = { name: 'John Doe', email: 'john@example.com', phone: '1234567890', preferences: { favoriteCurrencies: [], primaryCurrency: '' } };
 
     const result = await userService.createUser(userData);
 
@@ -58,12 +50,7 @@ describe('UserService', () => {
     });
 
     // Verify the user was inserted into the database
-    const insertedUser = await new Promise((resolve, reject) => {
-      sqliteRepo.db.get(`SELECT * FROM users WHERE id = ?`, [result.id], (err, row) => {
-        if (err) reject(err);
-        resolve(row);
-      });
-    });
+    const insertedUser = await userService.getUserById(result.id);
 
     expect(insertedUser).toMatchObject(userData);
   });

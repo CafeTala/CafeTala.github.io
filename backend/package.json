@@ -7,7 +7,7 @@
     "start": "node src/app.js",
     "test": "jest",
     "tst": "jest --verbose true --silent false",
-    "test:single": "jest --testPathPattern UserService"
+    "test:single": "jest --testPathPattern auth"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

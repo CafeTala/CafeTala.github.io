@@ -1,7 +1,6 @@
 require('dotenv').config(); // Add this line to load environment variables
 const request = require('supertest');
 const app = require('../src/app'); // Assuming app.js exports the Express app
-const redisAdapter = require('../src/utils/redisAdapter');
 
 describe('Authentication APIs', () => {
   beforeAll(async () => {
@@ -9,11 +8,7 @@ describe('Authentication APIs', () => {
     if (!process.env.JWT_SECRET) {
       throw new Error('JWT_SECRET is not defined');
     }
-    const redisUp = await redisAdapter.isRedisUp();
-    if (!redisUp) {
-      throw new Error('Redis is not available');
-    }
-    console.log('Redis is up and JWT_SECRET is defined');
+    console.log('JWT_SECRET is defined');
   });
 
   // Set a timeout for all tests in this suite

@@ -4,34 +4,41 @@ const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
 const storeRoutes = require('./routes/storeRoutes');
+const db = require('./models');
+const config = require('./config');
 
 dotenv.config(); // Ensure this is called before using any environment variables
 
 const app = express();
 app.use(express.json());
 
-// Database connection
-mongoose.connect(process.env.DB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('Database connected'))
-.catch((error) => {
-  console.log('DB_URI:', process.env.DB_URI);
-  console.error('Database connection error:', error);
-  process.exit(1); // Exit the process if the database connection fails
-});
+// Database initialization
+async function initializeDatabase() {
+  if (config.dbChoice === 'mongo') {
+    await mongoose.connect(config.dbUri, { useNewUrlParser: true, useUnifiedTopology: true });
+    console.log('Connected to MongoDB');
+  } else if (config.dbChoice === 'sqlite') {
+    await db.sequelize.sync();
+    console.log('SQLite tables created');
+  } else {
+    throw new Error('Invalid database choice');
+  }
+}
 
 // Routes
 app.use('/auth', authRoutes);
 app.use('/products', productRoutes);
 app.use('/stores', storeRoutes);
 
-// ...existing code...
-
+// Start the server
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+initializeDatabase().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}).catch(err => {
+  console.error('Failed to initialize database:', err);
+  process.exit(1);
 });
 
 module.exports = app;

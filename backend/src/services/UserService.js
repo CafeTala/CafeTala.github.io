@@ -1,44 +1,29 @@
-const config = require('../config'); // Assuming you have a config file
+const config = require('../config');
+const UserRepository = require('../repositories/UserRepository');
 
 class UserService {
-  constructor(mongoRepo, sqliteRepo) {
-    this.mongoRepo = mongoRepo;
-    this.sqliteRepo = sqliteRepo;
-    this.dbRepo = this.getRepository();
-  }
-
-  getRepository() {
-    const dbChoice = config.dbChoice;
-    if (dbChoice === 'mongo') {
-      return this.mongoRepo;
-    } else if (dbChoice === 'sqlite') {
-      return this.sqliteRepo;
-    } else {
-      throw new Error('Invalid database choice');
-    }
+  constructor() {
+    this.userRepo = new UserRepository();
   }
 
   async getUserById(id) {
-    const data = await this.dbRepo.getById(id);
-    return data;
+    return this.userRepo.getById(id);
   }
 
   async getAllUsers() {
-    return this.dbRepo.getAll();
+    return this.userRepo.getAll();
   }
 
   async createUser(data) {
-    const createdData = await this.dbRepo.create(data);
-    return createdData;
+    return this.userRepo.create(data);
   }
 
   async updateUser(id, data) {
-    const updatedData = await this.dbRepo.update(id, data);
-    return updatedData;
+    return this.userRepo.update(id, data);
   }
 
   async deleteUser(id) {
-    await this.dbRepo.delete(id);
+    return this.userRepo.delete(id);
   }
 }
 

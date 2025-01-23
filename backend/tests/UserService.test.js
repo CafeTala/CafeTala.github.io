@@ -6,7 +6,7 @@ describe('UserService', () => {
   let userService;
   let sqliteRepo;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     sqliteRepo = new SQLiteRepository(':memory:', 'users');
     userService = new UserService(null, sqliteRepo);
 
@@ -14,20 +14,7 @@ describe('UserService', () => {
     config.dbChoice = 'sqlite';
 
     // Create the users table
-    return new Promise((resolve, reject) => {
-      sqliteRepo.db.run(`
-        CREATE TABLE users (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          name TEXT NOT NULL,
-          email TEXT NOT NULL UNIQUE,
-          phone TEXT NOT NULL UNIQUE,
-          preferences TEXT
-        )
-      `, (err) => {
-        if (err) reject(err);
-        resolve();
-      });
-    });
+    await sqliteRepo.createTable();
   });
 
   afterEach(() => {

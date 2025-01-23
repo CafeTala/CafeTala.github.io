@@ -1,4 +1,4 @@
 module.exports = {
   testEnvironment: 'node',
-  // ...existing code...
+  silent: false, // Ensure this is set to false to show console logs
 };

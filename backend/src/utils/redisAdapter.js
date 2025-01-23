@@ -57,5 +57,6 @@ module.exports = {
     await ensureConnected();
     return delAsync(key);
   },
-  isRedisUp
+  isRedisUp,
+  ensureConnected // Export ensureConnected function
 };

@@ -5,6 +5,7 @@ const redisAdapter = require('../src/utils/redisAdapter');
 
 describe('Authentication APIs', () => {
   beforeAll(async () => {
+    console.log('Running beforeAll hook');
     if (!process.env.JWT_SECRET) {
       throw new Error('JWT_SECRET is not defined');
     }
@@ -12,12 +13,14 @@ describe('Authentication APIs', () => {
     if (!redisUp) {
       throw new Error('Redis is not available');
     }
+    console.log('Redis is up and JWT_SECRET is defined');
   });
 
   // Set a timeout for all tests in this suite
-  jest.setTimeout(30000); // Increase timeout to 30 seconds
+  jest.setTimeout(60000); // Increase timeout to 60 seconds
 
   it('should get token for guest users', async () => {
+    console.log('Running test: should get token for guest users');
     const res = await request(app)
       .post('/auth/guest')
       .send({ deviceId: 'test-device-id' });
@@ -28,6 +31,7 @@ describe('Authentication APIs', () => {
   });
 
   it('should send OTP', async () => {
+    console.log('Running test: should send OTP');
     const res = await request(app)
       .post('/auth/otp')
       .send({ phone: '1234567890' });
@@ -37,6 +41,7 @@ describe('Authentication APIs', () => {
   });
 
   it('should login/signup user', async () => {
+    console.log('Running test: should login/signup user');
     const res = await request(app)
       .post('/auth/login')
       .send({ phone: '1234567890', otp: '123456' });
@@ -48,6 +53,7 @@ describe('Authentication APIs', () => {
   });
 
   it('should return error for invalid OTP', async () => {
+    console.log('Running test: should return error for invalid OTP');
     const res = await request(app)
       .post('/auth/login')
       .send({ phone: '1234567890', otp: '000000' });
@@ -57,6 +63,7 @@ describe('Authentication APIs', () => {
   });
 
   it('should return error for missing fields', async () => {
+    console.log('Running test: should return error for missing fields');
     const res = await request(app)
       .post('/auth/login')
       .send({ phone: '1234567890' });

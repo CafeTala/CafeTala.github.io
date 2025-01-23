@@ -29,11 +29,13 @@ class SQLiteRepository extends IRepository {
   async create(data) {
     const keys = Object.keys(data).join(',');
     const values = Object.values(data).map(() => '?').join(',');
+    const tableName = this.tableName; // Capture the `tableName`
+    const db = this.db; // Capture the `this` context
     return new Promise((resolve, reject) => {
-      this.db.run(`INSERT INTO ${this.tableName} (${keys}) VALUES (${values})`, Object.values(data), function (err) {
+      db.run(`INSERT INTO ${tableName} (${keys}) VALUES (${values})`, Object.values(data), function (err) {
         if (err) reject(err);
         const id = this.lastID;
-        this.db.get(`SELECT * FROM ${this.tableName} WHERE id = ?`, [id], (err, row) => {
+        db.get(`SELECT * FROM ${tableName} WHERE id = ?`, [id], (err, row) => {
           if (err) reject(err);
           resolve(row);
         });

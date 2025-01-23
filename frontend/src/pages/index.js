@@ -5,7 +5,7 @@ const IndexPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    router.push('/auth');
+    router.push('/stores');
   }, [router]);
 
   return null;

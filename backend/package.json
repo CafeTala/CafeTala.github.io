@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/app.js",
     "test": "jest",
-    "tst": "jest --verbose true --silent false"
+    "tst": "jest --verbose true --silent false",
+    "test:single": "jest --testPathPattern UserService"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -14,7 +15,8 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.23",
-    "redis": "^4.7.0"
+    "redis": "^4.7.0",
+    "sqlite3": "^5.0.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",

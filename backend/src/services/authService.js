@@ -27,7 +27,6 @@ exports.verifyOtp = async (phone, otp) => {
 };
 
 exports.sendOtp = async (phone) => {
-  // Generate a random 6-digit OTP
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
   const expiresAt = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes from now
   await OTP.create({ phone, otp, expiresAt });

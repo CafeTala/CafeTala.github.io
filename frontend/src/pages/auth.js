@@ -1,9 +1,9 @@
-import AuthPage from './AuthPage'; // Update the import to use the correct path
+import AuthPage from './AuthPage';
+import axios from 'axios';
 
 export default AuthPage;
 
 export const handleOtpLogin = async (phone, otp) => {
-  const axios = require('axios').default;
   try {
     const response = await axios.post('/auth/login', { phone, otp });
     return response.data;
@@ -13,7 +13,6 @@ export const handleOtpLogin = async (phone, otp) => {
 };
 
 export const handleGuestLogin = async (deviceId) => {
-  const axios = require('axios').default;
   try {
     const response = await axios.post('/auth/guest', { deviceId });
     return response.data;

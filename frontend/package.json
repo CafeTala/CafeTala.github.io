@@ -4,10 +4,10 @@
   "description": "Frontend interface for Cafe Tala",
   "main": "src/index.js",
   "scripts": {
-    "dev": "next dev",
-    "dev:mock": "cross-env NEXT_PUBLIC_MOCK_AXIOS=true next dev",
+    "dev": "next dev -p 80",
+    "dev:mock": "cross-env NEXT_PUBLIC_MOCK_AXIOS=true next dev -p 80",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 80",
     "lint": "next lint",
     "mock": "jest --config jest.config.js --watchAll",
     "test": "jest",

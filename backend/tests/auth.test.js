@@ -1,6 +1,7 @@
 require('dotenv').config(); // Add this line to load environment variables
 const request = require('supertest');
 const app = require('../src/app'); // Assuming app.js exports the Express app
+const db = require('../src/models');
 
 describe('Authentication APIs', () => {
   beforeAll(async () => {
@@ -9,6 +10,10 @@ describe('Authentication APIs', () => {
       throw new Error('JWT_SECRET is not defined');
     }
     console.log('JWT_SECRET is defined');
+  });
+
+  beforeEach(async () => {
+    await db.sequelize.sync({ force: true }); // Reset database before each test
   });
 
   // Set a timeout for all tests in this suite

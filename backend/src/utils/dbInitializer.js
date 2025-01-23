@@ -48,6 +48,15 @@ async function initializeSQLiteDatabase(dbPath) {
     )
   `;
 
+  const createOTPsTable = `
+    CREATE TABLE IF NOT EXISTS OTPs (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      phone TEXT NOT NULL,
+      otp TEXT NOT NULL,
+      expiresAt DATETIME NOT NULL
+    )
+  `;
+
   return new Promise((resolve, reject) => {
     db.serialize(() => {
       db.run(createUsersTable, (err) => {
@@ -63,6 +72,10 @@ async function initializeSQLiteDatabase(dbPath) {
       });
 
       db.run(createCurrenciesTable, (err) => {
+        if (err) reject(err);
+      });
+
+      db.run(createOTPsTable, (err) => {
         if (err) reject(err);
       });
 

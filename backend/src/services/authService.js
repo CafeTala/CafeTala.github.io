@@ -18,7 +18,7 @@ exports.verifyOtp = async (phone, otp) => {
     await OTP.destroy({ where: { phone, otp } }); // Remove OTP after verification
     let user = await User.findOne({ where: { phone } });
     if (!user) {
-      user = await User.create({ phone, isGuest: true });
+      user = await User.create({ phone });
     }
     return user;
   } else {

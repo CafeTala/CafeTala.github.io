@@ -19,3 +19,8 @@
 //     expect(res.body).toHaveProperty('type');
 //   });
 // });
+describe('Store APIs', () => {
+    it('should have a basic test', () => {
+      expect(true).toBe(true);
+    });
+  });

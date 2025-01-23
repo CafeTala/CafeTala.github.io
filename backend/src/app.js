@@ -17,6 +17,7 @@ mongoose.connect(process.env.DB_URI, {
 })
 .then(() => console.log('Database connected'))
 .catch((error) => {
+  console.log('DB_URI:', process.env.DB_URI);
   console.error('Database connection error:', error);
   process.exit(1); // Exit the process if the database connection fails
 });

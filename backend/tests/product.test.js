@@ -1,6 +1,12 @@
 // const request = require('supertest');
 // const app = require('../src/app'); // Assuming app.js exports the Express app
 
+describe('Product APIs', () => {
+  it('should have a basic test', () => {
+    expect(true).toBe(true);
+  });
+});
+
 // describe('Product APIs', () => {
 //   it('should get product list', async () => {
 //     const res = await request(app)

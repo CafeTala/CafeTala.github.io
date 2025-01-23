@@ -1,25 +1,17 @@
 const UserService = require('../src/services/UserService');
-const MongoRepository = require('../src/repositories/MongoRepository');
-const RedisRepository = require('../src/repositories/RedisRepository');
 const SQLiteRepository = require('../src/repositories/SQLiteRepository');
 const User = require('../src/models/User');
 const config = require('../src/config');
 
-jest.mock('../src/repositories/MongoRepository');
-jest.mock('../src/repositories/RedisRepository');
 jest.mock('../src/repositories/SQLiteRepository');
 
 describe('UserService', () => {
   let userService;
-  let mongoRepo;
-  let redisRepo;
   let sqliteRepo;
 
   beforeEach(() => {
-    mongoRepo = new MongoRepository(User);
-    redisRepo = new RedisRepository();
     sqliteRepo = new SQLiteRepository(':memory:', 'users');
-    userService = new UserService(mongoRepo, redisRepo, sqliteRepo);
+    userService = new UserService(null, null, sqliteRepo);
 
     // Ensure the correct repository is used based on the configuration
     config.dbChoice = 'sqlite';
@@ -29,15 +21,26 @@ describe('UserService', () => {
     jest.clearAllMocks();
   });
 
-  test('should get user by id from Redis if available', async () => {
+  test('should get user by id from database', async () => {
     const userId = '123';
     const userData = { id: userId, name: 'John Doe' };
-    redisRepo.getById.mockResolvedValue(userData);
+    sqliteRepo.getById.mockResolvedValue(userData);
 
     const result = await userService.getUserById(userId);
 
-    expect(redisRepo.getById).toHaveBeenCalledWith(userId);
+    expect(sqliteRepo.getById).toHaveBeenCalledWith(userId);
     expect(result).toEqual(userData);
+  });
+
+  test('should create a new user', async () => {
+    const userData = { name: 'John Doe' };
+    const createdUserData = { id: '123', ...userData };
+    sqliteRepo.create.mockResolvedValue(createdUserData);
+
+    const result = await userService.createUser(userData);
+
+    expect(sqliteRepo.create).toHaveBeenCalledWith(userData);
+    expect(result).toEqual(createdUserData);
   });
 
   test('should get user by id from database if not in Redis and cache it', async () => {

@@ -2,10 +2,10 @@ import { setupWorker, rest } from 'msw';
 import { setupServer } from 'msw/node';
 
 const handlers = [
-  rest.post('/auth/otp', (req, res, ctx) => {
+  rest.post('/api/auth/otp', (req, res, ctx) => {
     return res(ctx.json({ message: 'OTP sent successfully.' }));
   }),
-  rest.post('/auth/login', (req, res, ctx) => {
+  rest.post('/api/auth/login', (req, res, ctx) => {
     return res(ctx.json({
       token: 'mock-token',
       user: {
@@ -18,7 +18,7 @@ const handlers = [
       }
     }));
   }),
-  rest.post('/auth/guest', (req, res, ctx) => {
+  rest.post('/api/auth/guest', (req, res, ctx) => {
     return res(ctx.json({
       token: 'mock-guest-token',
       guest: {
@@ -26,7 +26,7 @@ const handlers = [
       }
     }));
   }),
-  rest.get('/products', (req, res, ctx) => {
+  rest.get('/api/products', (req, res, ctx) => {
     return res(ctx.json([
       {
         id: 'product-1',
@@ -46,7 +46,7 @@ const handlers = [
       }
     ]));
   }),
-  rest.get('/products/:id', (req, res, ctx) => {
+  rest.get('/api/products/:id', (req, res, ctx) => {
     return res(ctx.json({
       id: req.params.id,
       name: `محصول ${req.params.id}`,
@@ -70,7 +70,7 @@ const handlers = [
       store: { id: 'store-1', name: 'فروشگاه ۱' }
     }));
   }),
-  rest.get('/stores', (req, res, ctx) => {
+  rest.get('/api/stores', (req, res, ctx) => {
     return res(ctx.json([
       {
         id: 'store-1',
@@ -126,7 +126,7 @@ const handlers = [
       }
     ]));
   }),
-  rest.get('/stores/:id', (req, res, ctx) => {
+  rest.get('/api/stores/:id', (req, res, ctx) => {
     return res(ctx.json({
       id: req.params.id,
       name: `فروشگاه ${req.params.id}`,
@@ -153,8 +153,17 @@ const handlers = [
         }
       }
     }));
+  }),
+  rest.get('/defaultStoreImage.jpg', (req, res, ctx) => {
+    return res(
+      ctx.set('Content-Type', 'image/jpeg'),
+      ctx.body(binaryImage)
+    );
   })
 ];
+
+const base64Image = 'data:image/jpeg;base64,...'; // your base64 encoded image string
+const binaryImage = Uint8Array.from(atob(base64Image.split(',')[1]), c => c.charCodeAt(0));
 
 if (typeof window === 'undefined') {
   // Node.js environment

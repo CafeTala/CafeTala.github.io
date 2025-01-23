@@ -2,15 +2,15 @@ import React from 'react';
 import '../styles/fonts.css'; // Add this import
 import axios from 'axios';
 
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-console.log('NEXT_PUBLIC_API_BASE_URL:', process.env.NEXT_PUBLIC_API_BASE_URL);
-console.log('NEXT_PUBLIC_MOCK_AXIOS:', process.env.NEXT_PUBLIC_MOCK_AXIOS);
-
 if (process.env.NEXT_PUBLIC_MOCK_AXIOS === 'true') {
-  import('../mock').then(() => {
+  console.log('MOCK_AXIOS:', process.env.NEXT_PUBLIC_MOCK_AXIOS);
+  import('../__mock__/mock').then(() => {
     console.log('Mocking enabled');
   });
+}
+else {
+  axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+  console.log('API_BASE_URL:', process.env.NEXT_PUBLIC_API_BASE_URL);
 }
 
 function MyApp({ Component, pageProps }) {

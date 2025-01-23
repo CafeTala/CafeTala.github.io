@@ -18,7 +18,6 @@ cafe-tala/
 │   │   │   ├── productModel.js
 │   │   │   └── currencyModel.js
 │   │   ├── repositories/
-│   │   │   ├── UserRepository.js
 │   │   │   ├── SQLiteRepository.js
 │   │   │   └── IRepository.js
 │   │   ├── services/

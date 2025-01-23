@@ -10,6 +10,8 @@ phone: String
 
 preferences: JSON (favoriteCurrencies, primaryCurrency)
 
+isGuest: Boolean
+
 createdAt: DateTime
 
 updatedAt: DateTime

@@ -76,7 +76,7 @@ const handlers = [
         id: 'store-1',
         name: 'فروشگاه ۱',
         type: 'physical',
-        location: { latitude: 35.6892, longitude: 51.3890 },
+        location: { latitude: 35.6892, longitude: 51.3890, neighborhood: 'محله ۱' },
         supportedCurrencies: ['IRR', 'USD'],
         contact: {
           phone: '۰۲۱-۱۲۳۴۵۶۷۸',
@@ -95,7 +95,8 @@ const handlers = [
           friday: '۹:۰۰ - ۲۱:۰۰',
           saturday: '۱۰:۰۰ - ۲۰:۰۰',
           sunday: 'تعطیل'
-        }
+        },
+        currentDay: 'monday'
       },
       {
         id: 'store-2',
@@ -106,6 +107,7 @@ const handlers = [
         contact: {
           phone: '۰۲۱-۹۸۷۶۵۴۳۲',
           email: 'store2@example.com',
+          website: 'www.store2.com',
           socialLinks: {
             facebook: 'store2_fb',
             instagram: 'store2_ig',
@@ -120,13 +122,14 @@ const handlers = [
           friday: '۲۴ ساعته',
           saturday: '۲۴ ساعته',
           sunday: '۲۴ ساعته'
-        }
+        },
+        currentDay: 'monday'
       },
       {
         id: 'store-3',
         name: 'فروشگاه ۳',
         type: 'physical',
-        location: { latitude: 40.7128, longitude: -74.0060 },
+        location: { latitude: 40.7128, longitude: -74.0060, neighborhood: 'محله ۳' },
         supportedCurrencies: ['IRR', 'USD'],
         contact: {
           phone: '۰۲۱-۳۴۵۶۷۸۹۰',
@@ -145,7 +148,8 @@ const handlers = [
           friday: '۹:۰۰ - ۲۱:۰۰',
           saturday: '۱۰:۰۰ - ۲۰:۰۰',
           sunday: 'تعطیل'
-        }
+        },
+        currentDay: 'monday'
       },
       {
         id: 'store-4',
@@ -156,6 +160,7 @@ const handlers = [
         contact: {
           phone: '۰۲۱-۴۵۶۷۸۹۰۱',
           email: 'store4@example.com',
+          website: 'www.store4.com',
           socialLinks: {
             facebook: 'store4_fb',
             instagram: 'store4_ig',
@@ -170,13 +175,14 @@ const handlers = [
           friday: '۲۴ ساعته',
           saturday: '۲۴ ساعته',
           sunday: '۲۴ ساعته'
-        }
+        },
+        currentDay: 'monday'
       },
       {
         id: 'store-5',
         name: 'فروشگاه ۵',
         type: 'physical',
-        location: { latitude: 48.8566, longitude: 2.3522 },
+        location: { latitude: 48.8566, longitude: 2.3522, neighborhood: 'محله ۵' },
         supportedCurrencies: ['IRR', 'USD'],
         contact: {
           phone: '۰۲۱-۵۶۷۸۹۰۱۲',
@@ -195,7 +201,8 @@ const handlers = [
           friday: '۹:۰۰ - ۲۱:۰۰',
           saturday: '۱۰:۰۰ - ۲۰:۰۰',
           sunday: 'تعطیل'
-        }
+        },
+        currentDay: 'monday'
       },
       {
         id: 'store-6',
@@ -206,6 +213,7 @@ const handlers = [
         contact: {
           phone: '۰۲۱-۶۷۸۹۰۱۲۳',
           email: 'store6@example.com',
+          website: 'www.store6.com',
           socialLinks: {
             facebook: 'store6_fb',
             instagram: 'store6_ig',
@@ -220,13 +228,14 @@ const handlers = [
           friday: '۲۴ ساعته',
           saturday: '۲۴ ساعته',
           sunday: '۲۴ ساعته'
-        }
+        },
+        currentDay: 'monday'
       },
       {
         id: 'store-7',
         name: 'فروشگاه ۷',
         type: 'physical',
-        location: { latitude: 55.7558, longitude: 37.6173 },
+        location: { latitude: 55.7558, longitude: 37.6173, neighborhood: 'محله ۷' },
         supportedCurrencies: ['IRR', 'USD'],
         contact: {
           phone: '۰۲۱-۷۸۹۰۱۲۳۴',
@@ -245,7 +254,8 @@ const handlers = [
           friday: '۹:۰۰ - ۲۱:۰۰',
           saturday: '۱۰:۰۰ - ۲۰:۰۰',
           sunday: 'تعطیل'
-        }
+        },
+        currentDay: 'monday'
       },
       {
         id: 'store-8',
@@ -256,6 +266,7 @@ const handlers = [
         contact: {
           phone: '۰۲۱-۸۹۰۱۲۳۴۵',
           email: 'store8@example.com',
+          website: 'www.store8.com',
           socialLinks: {
             facebook: 'store8_fb',
             instagram: 'store8_ig',
@@ -270,13 +281,14 @@ const handlers = [
           friday: '۲۴ ساعته',
           saturday: '۲۴ ساعته',
           sunday: '۲۴ ساعته'
-        }
+        },
+        currentDay: 'monday'
       },
       {
         id: 'store-9',
         name: 'فروشگاه ۹',
         type: 'physical',
-        location: { latitude: -33.8688, longitude: 151.2093 },
+        location: { latitude: -33.8688, longitude: 151.2093, neighborhood: 'محله ۹' },
         supportedCurrencies: ['IRR', 'USD'],
         contact: {
           phone: '۰۲۱-۹۰۱۲۳۴۵۶',
@@ -295,7 +307,8 @@ const handlers = [
           friday: '۹:۰۰ - ۲۱:۰۰',
           saturday: '۱۰:۰۰ - ۲۰:۰۰',
           sunday: 'تعطیل'
-        }
+        },
+        currentDay: 'monday'
       },
       {
         id: 'store-10',
@@ -306,6 +319,7 @@ const handlers = [
         contact: {
           phone: '۰۲۱-۰۱۲۳۴۵۶۷',
           email: 'store10@example.com',
+          website: 'www.store10.com',
           socialLinks: {
             facebook: 'store10_fb',
             instagram: 'store10_ig',
@@ -320,7 +334,8 @@ const handlers = [
           friday: '۲۴ ساعته',
           saturday: '۲۴ ساعته',
           sunday: '۲۴ ساعته'
-        }
+        },
+        currentDay: 'monday'
       }
     ]));
   }),
@@ -330,7 +345,7 @@ const handlers = [
       name: `فروشگاه ${req.params.id}`,
       type: 'physical',
       image: `store${req.params.id}.jpg`,
-      location: { latitude: 35.6892, longitude: 51.3890 },
+      location: { latitude: 35.6892, longitude: 51.3890, neighborhood: 'محله ۱' },
       supportedCurrencies: ['IRR', 'USD'],
       contact: {
         phone: '۰۲۱-۱۲۳۴۵۶۷۸',
@@ -339,17 +354,18 @@ const handlers = [
           facebook: `store${req.params.id}_fb`,
           instagram: `store${req.params.id}_ig`,
           twitter: `store${req.params.id}_tw`
-        },
-        openHours: {
-          monday: '۹:۰۰ - ۲۱:۰۰',
-          tuesday: '۹:۰۰ - ۲۱:۰۰',
-          wednesday: '۹:۰۰ - ۲۱:۰۰',
-          thursday: '۹:۰۰ - ۲۱:۰۰',
-          friday: '۹:۰۰ - ۲۱:۰۰',
-          saturday: '۱۰:۰۰ - ۲۰:۰۰',
-          sunday: 'تعطیل'
         }
-      }
+      },
+      openHours: {
+        monday: '۹:۰۰ - ۲۱:۰۰',
+        tuesday: '۹:۰۰ - ۲۱:۰۰',
+        wednesday: '۹:۰۰ - ۲۱:۰۰',
+        thursday: '۹:۰۰ - ۲۱:۰۰',
+        friday: '۹:۰۰ - ۲۱:۰۰',
+        saturday: '۱۰:۰۰ - ۲۰:۰۰',
+        sunday: 'تعطیل'
+      },
+      currentDay: 'monday'
     }));
   })
 ];

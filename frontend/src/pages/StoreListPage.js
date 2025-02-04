@@ -28,12 +28,12 @@ const StoreListPage = () => {
   }
 
   return (
-    <Container maxWidth="lg" style={{ fontFamily: 'IRANSansWeb', direction: 'rtl', textAlign: 'right' }}>
+    <Container style={{ fontFamily: 'IRANSansWeb', direction: 'rtl', textAlign: 'right', padding: 0 }}>
       <Box mt={5}>
         <Typography variant="h4" gutterBottom>
           {faTexts.store_list}
         </Typography>
-        <Grid container spacing={3}>
+        <Grid container>
           {stores.map((store) => (
             <Grid item xs={12} sm={6} md={4} key={store.id}>
               <StoreCard store={store} onClick={() => router.push(`/stores/${store.id}`)} />

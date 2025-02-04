@@ -13,7 +13,7 @@ const StoreCard = ({ store, onClick }) => {
           <CardMedia
             component="img"
             alt={store.name}
-            style={{ width: '150px', height: '150px', objectFit: 'cover', backgroundColor: store.image ? 'transparent' : '#f0f0f0' }}
+            style={{ width: '150px', height: '150px', objectFit: 'cover', backgroundColor: store.image ? 'transparent' : '#f0f0f0', margin: '10px' }}
             image={store.image || '/images/shop.png'}
             title={store.name}
           />
@@ -33,7 +33,7 @@ const StoreCard = ({ store, onClick }) => {
           </CardContent>
         </CardActionArea>
       </Card>
-      <Divider style={{ margin: '10px 0' }} />
+      <Divider />
     </Box>
   );
 };

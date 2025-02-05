@@ -17,6 +17,36 @@ const userLocationIcon = new L.DivIcon({
   iconAnchor: [14, 14],
 });
 
+const currencyIcons = {
+  IRR: new L.DivIcon({
+    html: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="10" fill="#4CAF50" />
+      <text x="12" y="16" textAnchor="middle" fill="white" fontSize="12" fontFamily="Arial">T</text>
+    </svg>`,
+    className: 'custom-icon',
+    iconSize: [28, 28],
+    iconAnchor: [14, 14],
+  }),
+  USD: new L.DivIcon({
+    html: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="10" fill="#2196F3" />
+      <text x="12" y="16" textAnchor="middle" fill="white" fontSize="12" fontFamily="Arial">$</text>
+    </svg>`,
+    className: 'custom-icon',
+    iconSize: [28, 28],
+    iconAnchor: [14, 14],
+  }),
+  GOLD: new L.DivIcon({
+    html: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="10" fill="#FFD700" />
+      <text x="12" y="16" textAnchor="middle" fill="white" fontSize="12" fontFamily="Arial">G</text>
+    </svg>`,
+    className: 'custom-icon',
+    iconSize: [28, 28],
+    iconAnchor: [14, 14],
+  })
+};
+
 const UserLocationMarker = ({ onLocate }) => {
   const [position, setPosition] = useState(null);
   const map = useMap();
@@ -78,7 +108,7 @@ const Map = ({ stores }) => {
         />
         <UserLocationMarker onLocate={setUserPosition} />
         {nearbyStores.map((store) => (
-          <Marker key={store.id} position={[store.location.latitude, store.location.longitude]}>
+          <Marker key={store.id} position={[store.location.latitude, store.location.longitude]} icon={currencyIcons[store.supportedCurrencies[0]]}>
             <Popup>
               {store.name}
             </Popup>

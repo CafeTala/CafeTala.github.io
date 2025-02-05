@@ -72,7 +72,7 @@ const Map = ({ stores }) => {
 
   return (
     <div style={{ position: 'relative', height: '100%', width: '100%' }}>
-      <MapContainer center={userPosition || [35.6892, 51.3890]} zoom={13} style={{ height: '100%', width: '100%' }} attributionControl={false} zoomControl={false}>
+      <MapContainer center={[36.2880, 59.6150]} zoom={13} style={{ height: '100%', width: '100%' }} attributionControl={false} zoomControl={false}>
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
         />

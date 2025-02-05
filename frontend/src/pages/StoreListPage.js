@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Box, Typography, CircularProgress, Grid } from '@mui/material';
 import { useRouter } from 'next/router';
 import StoreCard from '../components/StoreCard';
 import useStores from '../hooks/useStores';
 import faTexts from '../locales/fa.json';
+import dynamic from 'next/dynamic';
+
+const Map = dynamic(() => import('../components/Map'), { ssr: false });
 
 const StoreListPage = () => {
   const { stores, loading, error } = useStores();
   const router = useRouter();
+  const [mapExpanded, setMapExpanded] = useState(false);
+
+  const handleScroll = (e) => {
+    if (e.target.scrollTop > 100) {
+      setMapExpanded(true);
+    } else {
+      setMapExpanded(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -28,7 +40,10 @@ const StoreListPage = () => {
   }
 
   return (
-    <Container style={{ fontFamily: 'IRANSansWeb', direction: 'rtl', textAlign: 'right', padding: 0 }}>
+    <Container style={{ fontFamily: 'IRANSansWeb', direction: 'rtl', textAlign: 'right', padding: 0, height: '100vh', overflow: 'auto' }} onScroll={handleScroll}>
+      <Box style={{ height: mapExpanded ? '50vh' : '30vh', transition: 'height 0.3s' }}>
+        <Map stores={stores} />
+      </Box>
       <Box mt={5}>
         <Typography variant="h4" gutterBottom>
           {faTexts.store_list}

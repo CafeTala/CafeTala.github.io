@@ -7,18 +7,18 @@ const useStores = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const loadStores = async () => {
+    const getStores = async () => {
       try {
-        const response = await fetchStores();
-        setStores(response);
-      } catch (error) {
-        setError(error);
+        const data = await fetchStores();
+        setStores(data);
+      } catch (err) {
+        setError(err);
       } finally {
         setLoading(false);
       }
     };
 
-    loadStores();
+    getStores();
   }, []);
 
   return { stores, loading, error };

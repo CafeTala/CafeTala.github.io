@@ -4,8 +4,8 @@
   "description": "Frontend interface for Cafe Tala",
   "main": "src/index.js",
   "scripts": {
-    "dev": "next dev -p 80",
-    "dev:mock": "cross-env NEXT_PUBLIC_MOCK_AXIOS=true next dev -p 80",
+    "dev": "NODE_OPTIONS='--inspect' next dev -p 80",
+    "dev:mock": "cross-env NODE_OPTIONS='--inspect' NEXT_PUBLIC_MOCK_AXIOS=true next dev -p 80",
     "build": "next build",
     "start": "next start -p 80",
     "lint": "next lint",
@@ -14,29 +14,26 @@
     "msw:init": "msw init public"
   },
   "dependencies": {
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.7.1",
-    "@mui/material": "^5.0.0",
-    "axios": "^0.21.1",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^6.4.3",
+    "axios": "^1.7.9",
     "cross-env": "^7.0.3",
-    "next": "latest",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "next": "^15.1.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-leaflet": "^5.0.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.15.0",
     "@babel/preset-react": "^7.14.5",
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/react": "^16.2.0",
-    "eslint": "^7.32.0",
+    "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",
     "jest": "^26.6.3",
     "json-server": "^0.16.3",
-    "msw": "^0.35.0",
-    "@babel/eslint-parser": "^7.15.4",
-    "@next/eslint-plugin-next": "^12.0.0",
-    "eslint": "^7.32.0",
-    "eslint-config-next": "^12.0.0"
+    "msw": "^0.35.0"
   },
   "author": "",
   "license": "ISC",

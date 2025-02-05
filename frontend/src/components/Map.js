@@ -47,6 +47,19 @@ const currencyIcons = {
   })
 };
 
+const combinedCurrencyIcon = (currencies) => {
+  const iconHtml = currencies.map((currency, index) => {
+    const offset = index * 10; // Adjust the offset to position icons closer together
+    return `<div style="position: absolute; top: ${offset}px; left: ${offset}px;">${currencyIcons[currency].options.html}</div>`;
+  }).join('');
+  return new L.DivIcon({
+    html: `<div style="position: relative; width: 40px; height: 40px;">${iconHtml}</div>`,
+    className: 'custom-icon',
+    iconSize: [40, 40],
+    iconAnchor: [20, 20],
+  });
+};
+
 const UserLocationMarker = ({ onLocate }) => {
   const [position, setPosition] = useState(null);
   const map = useMap();
@@ -108,7 +121,11 @@ const Map = ({ stores }) => {
         />
         <UserLocationMarker onLocate={setUserPosition} />
         {nearbyStores.map((store) => (
-          <Marker key={store.id} position={[store.location.latitude, store.location.longitude]} icon={currencyIcons[store.supportedCurrencies[0]]}>
+          <Marker
+            key={store.id}
+            position={[store.location.latitude, store.location.longitude]}
+            icon={combinedCurrencyIcon(store.supportedCurrencies)}
+          >
             <Popup>
               {store.name}
             </Popup>

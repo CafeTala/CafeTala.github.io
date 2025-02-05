@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/fonts.css'; // Add this import
+import '../components/Map.css'; // Import the CSS file here
 import axios from 'axios';
 
 if (process.env.NEXT_PUBLIC_MOCK_AXIOS === 'true') {

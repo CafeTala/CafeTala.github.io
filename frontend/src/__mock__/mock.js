@@ -28,7 +28,7 @@ const stores = Array.from({ length: 10 }, (_, i) => ({
   name: `فروشگاه ${i + 1}`,
   type: 'physical',
   location: getRandomCoordinate(center, radius),
-  supportedCurrencies: ['IRR', 'USD', 'GOLD'],
+  supportedCurrencies: ['GOLD', 'IRR', 'USD', ],
   contact: {
     phone: `۰۲۱-${Math.floor(10000000 + Math.random() * 90000000)}`,
     email: `store${i + 1}@example.com`,

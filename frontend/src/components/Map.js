@@ -48,9 +48,14 @@ const currencyIcons = {
 };
 
 const combinedCurrencyIcon = (currencies) => {
+  const positions = [
+    { top: 0, left: 10 }, // GOLD (top)
+    { top: 10, left: 0 }, // USD (bottom left)
+    { top: 10, left: 20 } // IRR (bottom right)
+  ];
   const iconHtml = currencies.map((currency, index) => {
-    const offset = index * 10; // Adjust the offset to position icons closer together
-    return `<div style="position: absolute; top: ${offset}px; left: ${offset}px;">${currencyIcons[currency].options.html}</div>`;
+    const { top, left } = positions[index];
+    return `<div style="position: absolute; top: ${top}px; left: ${left}px;">${currencyIcons[currency].options.html}</div>`;
   }).join('');
   return new L.DivIcon({
     html: `<div style="position: relative; width: 40px; height: 40px;">${iconHtml}</div>`,

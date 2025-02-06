@@ -1,5 +1,10 @@
 import React from 'react';
-import { Box, Typography, Button, Divider, Paper } from '@mui/material';
+import { Box, Typography, Button, Divider, Paper, IconButton, Tooltip } from '@mui/material';
+import PhoneIcon from '@mui/icons-material/Phone';
+import EmailIcon from '@mui/icons-material/Email';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import TwitterIcon from '@mui/icons-material/Twitter';
 import faTexts from '../locales/fa.json';
 
 const StoreDetails = ({ store, onBack }) => {
@@ -17,28 +22,39 @@ const StoreDetails = ({ store, onBack }) => {
       <Typography variant="body1" gutterBottom style={{ marginBottom: 8 }}>
         {faTexts.supported_currencies}: {store.supportedCurrencies.join(', ')}
       </Typography>
-      <Typography variant="body1" gutterBottom style={{ marginBottom: 8 }}>
-        {faTexts.contact}: {store.contact.phone}
-      </Typography>
-      <Typography variant="body1" gutterBottom style={{ marginBottom: 8 }}>
-        {faTexts.email}: {store.contact.email}
-      </Typography>
-      <Typography variant="body1" gutterBottom style={{ marginBottom: 8 }}>
-        {faTexts.social_links}: 
-        <a href={`https://facebook.com/${store.contact.socialLinks.facebook}`} target="_blank" rel="noopener noreferrer" style={{ marginLeft: 8 }}>Facebook</a>, 
-        <a href={`https://instagram.com/${store.contact.socialLinks.instagram}`} target="_blank" rel="noopener noreferrer" style={{ marginLeft: 8 }}>Instagram</a>, 
-        <a href={`https://twitter.com/${store.contact.socialLinks.twitter}`} target="_blank" rel="noopener noreferrer" style={{ marginLeft: 8 }}>Twitter</a>
-      </Typography>
-      <Typography variant="body1" gutterBottom style={{ marginBottom: 8 }}>
-        {faTexts.open_hours}: 
-        {Object.entries(store.openHours).map(([day, hours]) => (
-          <div key={day} style={{ marginLeft: 16 }}>{faTexts[day]}: {hours}</div>
-        ))}
-      </Typography>
+      <Box display="flex" alignItems="center" style={{ marginBottom: 8 }}>
+        <PhoneIcon style={{ marginLeft: 8 }} />
+        <Typography variant="body1">{store.contact.phone}</Typography>
+      </Box>
+      <Box display="flex" alignItems="center" style={{ marginBottom: 8, padding: '8px 0' }}>
+        <Tooltip title={store.contact.email}>
+          <a href={`mailto:${store.contact.email}`} style={{ textDecoration: 'none', color: 'inherit', padding: '0 8px' }}>
+            <EmailIcon style={{ marginLeft: 8, cursor: 'pointer' }} />
+          </a>
+        </Tooltip>
+        <Tooltip title="Facebook">
+          <a href={`https://facebook.com/${store.contact.socialLinks.facebook}`} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit', padding: '0 8px' }}>
+            <FacebookIcon style={{ marginLeft: 8, cursor: 'pointer' }} />
+          </a>
+        </Tooltip>
+        <Tooltip title="Instagram">
+          <a href={`https://instagram.com/${store.contact.socialLinks.instagram}`} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit', padding: '0 8px' }}>
+            <InstagramIcon style={{ marginLeft: 8, cursor: 'pointer' }} />
+          </a>
+        </Tooltip>
+        <Tooltip title="Twitter">
+          <a href={`https://twitter.com/${store.contact.socialLinks.twitter}`} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit', padding: '0 8px' }}>
+            <TwitterIcon style={{ marginLeft: 8, cursor: 'pointer' }} />
+          </a>
+        </Tooltip>
+      </Box>
       <Divider style={{ margin: '16px 0' }} />
       <Typography variant="body2" color="textSecondary">
         {faTexts.address}: {store.location.address}
       </Typography>
+      <Button variant="contained" color="secondary" style={{ marginTop: 16 }}>
+        {faTexts.track_store}
+      </Button>
     </Paper>
   );
 };

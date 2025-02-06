@@ -50,52 +50,59 @@ const StoreListPage = () => {
   }
 
   return (
-    <Container style={{ fontFamily: 'IRANSansWeb', direction: 'rtl', textAlign: 'right', padding: 0, height: '100vh', overflow: 'auto' }}>
-      <Box display="flex" alignItems="center" p={1.5} height={40}>
-        <TextField
-          placeholder="جستجو"
-          variant="outlined"
-          fullWidth
-          InputProps={{
-            endAdornment: (
-              <>
-                <InputAdornment position="end">
-                  <SearchIcon />
-                </InputAdornment>
-                <Divider orientation="vertical" flexItem />
-                <Button variant="contained" style={{ backgroundColor: 'transparent', border: 'none', boxShadow: 'none', color: 'black', padding: 10, margin: '5 0' }} endIcon={<FilterAltIcon style={{ color: 'black' }} />}>
-                  <Box style={{ padding: '3px', margin: '0 8px' }}>
-                    فیلترها
-                  </Box>
-                </Button>
-              </>
-            ),
-          }}
-        />
-      </Box>
-      <Box style={{ height: mapExpanded ? '85vh' : '30vh', transition: 'height 0.3s ease-in-out' }}>
-        <Map stores={stores} onInteraction={handleMapInteraction} mapExpanded={mapExpanded} />
-      </Box>
-      <Box display="flex" justifyContent="center" my={2}>
-        <img src={separatorSvg} alt="separator" />
-      </Box>
-      <Box mt={0} style={{ transition: 'margin-top 0.3s ease-in-out' }}>
-        {selectedStore ? (
-          <StoreDetails store={selectedStore} onBack={handleBackToList} />
-        ) : (
-          <>
-            <Typography variant="h4" gutterBottom>
-              {faTexts.store_list}
-            </Typography>
-            <Grid container>
-              {stores.map((store) => (
-                <Grid item xs={12} sm={6} md={4} key={store.id}>
-                  <StoreCard store={store} onClick={() => handleStoreClick(store)} />
-                </Grid>
-              ))}
-            </Grid>
-          </>
-        )}
+    <Container style={{ fontFamily: 'IRANSansWeb', direction: 'rtl', textAlign: 'right', padding: 0, height: '100vh', overflow: 'hidden' }}>
+      <Box style={{ height: '100%', overflowY: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+        <style jsx>{`
+          ::-webkit-scrollbar {
+            display: none;
+          }
+        `}</style>
+        <Box display="flex" alignItems="center" p={1.5} height={40}>
+          <TextField
+            placeholder="جستجو"
+            variant="outlined"
+            fullWidth
+            InputProps={{
+              endAdornment: (
+                <>
+                  <InputAdornment position="end">
+                    <SearchIcon />
+                  </InputAdornment>
+                  <Divider orientation="vertical" flexItem />
+                  <Button variant="contained" style={{ backgroundColor: 'transparent', border: 'none', boxShadow: 'none', color: 'black', padding: 10, margin: '5 0' }} endIcon={<FilterAltIcon style={{ color: 'black' }} />}>
+                    <Box style={{ padding: '3px', margin: '0 8px' }}>
+                      فیلترها
+                    </Box>
+                  </Button>
+                </>
+              ),
+            }}
+          />
+        </Box>
+        <Box style={{ height: mapExpanded ? '85vh' : '30vh', transition: 'height 0.3s ease-in-out' }}>
+          <Map stores={stores} onInteraction={handleMapInteraction} mapExpanded={mapExpanded} />
+        </Box>
+        <Box display="flex" justifyContent="center" my={2}>
+          <img src={separatorSvg} alt="separator" />
+        </Box>
+        <Box mt={0} style={{ transition: 'margin-top 0.3s ease-in-out' }}>
+          {selectedStore ? (
+            <StoreDetails store={selectedStore} onBack={handleBackToList} />
+          ) : (
+            <>
+              <Typography variant="h4" gutterBottom>
+                {faTexts.store_list}
+              </Typography>
+              <Grid container>
+                {stores.map((store) => (
+                  <Grid item xs={12} sm={6} md={4} key={store.id}>
+                    <StoreCard store={store} onClick={() => handleStoreClick(store)} />
+                  </Grid>
+                ))}
+              </Grid>
+            </>
+          )}
+        </Box>
       </Box>
     </Container>
   );

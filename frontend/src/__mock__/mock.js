@@ -23,12 +23,17 @@ const getRandomCoordinate = (center, radius) => {
 const center = { latitude: 36.2880, longitude: 59.6150 };
 const radius = 2000; // 2 kilometers
 
+const neighborhoods = ['محله ۱', 'محله ۲', 'محله ۳', 'محله ۴', 'محله ۵'];
+
 const stores = Array.from({ length: 10 }, (_, i) => ({
   id: `store-${i + 1}`,
   name: `فروشگاه ${i + 1}`,
   type: 'physical',
-  location: getRandomCoordinate(center, radius),
-  supportedCurrencies: ['GOLD', 'IRR', 'USD', ],
+  location: {
+    ...getRandomCoordinate(center, radius),
+    neighborhood: neighborhoods[i % neighborhoods.length]
+  },
+  supportedCurrencies: ['GOLD', 'IRR', 'USD'],
   contact: {
     phone: `۰۲۱-${Math.floor(10000000 + Math.random() * 90000000)}`,
     email: `store${i + 1}@example.com`,

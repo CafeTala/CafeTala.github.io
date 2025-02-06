@@ -94,15 +94,14 @@ const combinedCurrencyIcon = (currencies) => {
 
 const UserLocationMarker = ({ onLocate }) => {
   const [position, setPosition] = useState(null);
-
-  const map = useMap(); // Move this line inside the component
+  const map = useMap();
 
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((pos) => {
         const { latitude, longitude } = pos.coords;
         setPosition([latitude, longitude]);
-        map.setView([latitude, longitude], 13);
+        map.setView([latitude, longitude], 13); // Center map on user's location when page loads
         onLocate([latitude, longitude]);
       });
     }
@@ -116,11 +115,11 @@ const UserLocationMarker = ({ onLocate }) => {
 };
 
 const LocateButton = ({ userPosition }) => {
-  const map = useMap(); // Move this line inside the component
+  const map = useMap();
 
   const handleLocateUser = () => {
     if (userPosition) {
-      map.setView(userPosition, 13);
+      map.setView(userPosition, 13); // Center map on user's location when "Locate Me" button is clicked
     }
   };
 

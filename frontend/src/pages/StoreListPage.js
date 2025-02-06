@@ -37,10 +37,10 @@ const StoreListPage = () => {
 
   return (
     <Container style={{ fontFamily: 'IRANSansWeb', direction: 'rtl', textAlign: 'right', padding: 0, height: '100vh', overflow: 'auto' }}>
-      <Box style={{ height: mapExpanded ? '70vh' : '30vh', transition: 'height 0.3s ease-in-out' }}>
-        <Map stores={stores} onInteraction={handleMapInteraction} />
+      <Box style={{ height: mapExpanded ? '85vh' : '30vh', transition: 'height 0.3s ease-in-out' }}>
+        <Map stores={stores} onInteraction={handleMapInteraction} mapExpanded={mapExpanded} /> {/* Pass mapExpanded */}
       </Box>
-      <Box mt={0} style={{ transition: 'margin-top 0.3s ease-in-out' }}>
+      <Box mt={mapExpanded ? -8 : 0} style={{ transition: 'margin-top 0.3s ease-in-out' }}>
         <Typography variant="h4" gutterBottom>
           {faTexts.store_list}
         </Typography>

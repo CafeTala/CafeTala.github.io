@@ -94,7 +94,8 @@ const combinedCurrencyIcon = (currencies) => {
 
 const UserLocationMarker = ({ onLocate }) => {
   const [position, setPosition] = useState(null);
-  const map = useMap();
+
+  const map = useMap(); // Move this line inside the component
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -115,7 +116,7 @@ const UserLocationMarker = ({ onLocate }) => {
 };
 
 const LocateButton = ({ userPosition }) => {
-  const map = useMap();
+  const map = useMap(); // Move this line inside the component
 
   const handleLocateUser = () => {
     if (userPosition) {
@@ -128,7 +129,7 @@ const LocateButton = ({ userPosition }) => {
   );
 };
 
-const Map = ({ stores, onInteraction }) => {
+const MapComponent = ({ stores, onInteraction, mapExpanded }) => { // Add mapExpanded prop
   const [userPosition, setUserPosition] = useState(null);
   const [nearbyStores, setNearbyStores] = useState([]);
 
@@ -152,7 +153,7 @@ const Map = ({ stores, onInteraction }) => {
   };
 
   return (
-    <div style={{ position: 'relative', height: '100%', width: '100%' }} onClick={handleMapClick}>
+    <div style={{ height: '100%', width: '100%' }} onClick={handleMapClick}> {/* Add onClick handler */}
       <MapContainer center={[36.2880, 59.6150]} zoom={13} style={{ height: '100%', width: '100%' }} attributionControl={false} zoomControl={false}>
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
@@ -175,4 +176,4 @@ const Map = ({ stores, onInteraction }) => {
   );
 };
 
-export default Map;
+export default MapComponent;

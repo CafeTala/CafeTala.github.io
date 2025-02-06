@@ -146,14 +146,12 @@ const MapComponent = ({ stores, onInteraction, mapExpanded, onStoreClick }) => {
   }, [userPosition, stores]);
 
   const handleMapInteraction = (event) => {
-    console.log('handleMapInteraction clicked :', event.type);
     if (onInteraction) {
       onInteraction(event.type !== 'blur');
     }
   };
 
   const handleStoreClick = (store) => {
-    console.log('notlogged',store)
       onStoreClick(store);
       onInteraction(false);
   };

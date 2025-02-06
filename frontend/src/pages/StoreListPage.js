@@ -19,8 +19,8 @@ const StoreListPage = () => {
   const [mapExpanded, setMapExpanded] = useState(false);
   const [selectedStore, setSelectedStore] = useState(null);
 
-  const handleMapInteraction = () => {
-    setMapExpanded(true);
+  const handleMapInteraction = (expand) => {
+    setMapExpanded(expand);
   };
 
   const handleStoreClick = (store) => {
@@ -80,7 +80,7 @@ const StoreListPage = () => {
           />
         </Box>
         <Box style={{ height: mapExpanded ? '85vh' : '30vh', transition: 'height 0.3s ease-in-out' }}>
-          <Map stores={stores} onInteraction={handleMapInteraction} mapExpanded={mapExpanded} />
+          <Map stores={stores} onInteraction={handleMapInteraction} mapExpanded={mapExpanded} onStoreClick={handleStoreClick} />
         </Box>
         <Box display="flex" justifyContent="center" my={2}>
           <img src={separatorSvg} alt="separator" />

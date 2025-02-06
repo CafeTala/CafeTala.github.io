@@ -13,12 +13,8 @@ const StoreListPage = () => {
   const router = useRouter();
   const [mapExpanded, setMapExpanded] = useState(false);
 
-  const handleScroll = (e) => {
-    if (e.target.scrollTop > 100) {
-      setMapExpanded(true);
-    } else {
-      setMapExpanded(false);
-    }
+  const handleMapInteraction = () => {
+    setMapExpanded(true);
   };
 
   if (loading) {
@@ -40,11 +36,11 @@ const StoreListPage = () => {
   }
 
   return (
-    <Container style={{ fontFamily: 'IRANSansWeb', direction: 'rtl', textAlign: 'right', padding: 0, height: '100vh', overflow: 'auto' }} onScroll={handleScroll}>
-      <Box style={{ height: mapExpanded ? '50vh' : '30vh', transition: 'height 0.3s' }}>
-        <Map stores={stores} />
+    <Container style={{ fontFamily: 'IRANSansWeb', direction: 'rtl', textAlign: 'right', padding: 0, height: '100vh', overflow: 'auto' }}>
+      <Box style={{ height: mapExpanded ? '70vh' : '30vh', transition: 'height 0.3s ease-in-out' }}>
+        <Map stores={stores} onInteraction={handleMapInteraction} />
       </Box>
-      <Box mt={5}>
+      <Box mt={5} style={{ marginTop: mapExpanded ? '40vh' : '5vh', transition: 'margin-top 0.3s ease-in-out' }}>
         <Typography variant="h4" gutterBottom>
           {faTexts.store_list}
         </Typography>

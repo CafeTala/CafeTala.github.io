@@ -128,7 +128,7 @@ const LocateButton = ({ userPosition }) => {
   );
 };
 
-const Map = ({ stores }) => {
+const Map = ({ stores, onInteraction }) => {
   const [userPosition, setUserPosition] = useState(null);
   const [nearbyStores, setNearbyStores] = useState([]);
 
@@ -145,8 +145,14 @@ const Map = ({ stores }) => {
     }
   }, [userPosition, stores]);
 
+  const handleMapClick = () => {
+    if (onInteraction) {
+      onInteraction();
+    }
+  };
+
   return (
-    <div style={{ position: 'relative', height: '100%', width: '100%' }}>
+    <div style={{ position: 'relative', height: '100%', width: '100%' }} onClick={handleMapClick}>
       <MapContainer center={[36.2880, 59.6150]} zoom={13} style={{ height: '100%', width: '100%' }} attributionControl={false} zoomControl={false}>
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"

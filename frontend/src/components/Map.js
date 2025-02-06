@@ -48,22 +48,49 @@ const currencyIcons = {
 };
 
 const combinedCurrencyIcon = (currencies) => {
-  const positions = [
-    { top: 0, left: 10 }, // GOLD (top)
-    { top: 10, left: 0 }, // USD (bottom left)
-    { top: 10, left: 20 } // IRR (bottom right)
-  ];
-  const iconHtml = currencies.map((currency, index) => {
-    const { top, left } = positions[index];
-    return `<div style="position: absolute; top: ${top}px; left: ${left}px;">${currencyIcons[currency].options.html}</div>`;
+  // اندازه اصلی هر آیکون (با توجه به مقدار width/height در SVG)
+  const baseIconSize = 16;
+  // هر آیکون به اندازه‌ای همپوشانی می‌شود:
+  // به گونه‌ای که 1/3 از اندازه‌ی آیکون پشت آیکون قبلی قرار می‌گیرد.
+  const offsetX = baseIconSize - (baseIconSize / 2); // معادل 16 - 16/3 ≈ 10.67 پیکسل
+  const offsetY = baseIconSize / 3;                    // ≈ 5.33 پیکسل (برای کمی جابه‌جایی عمودی)
+  
+  // ابعاد نهایی محفظه‌ی ترکیبی (با احتساب همپوشانی)
+  const totalWidth = baseIconSize + (currencies.length - 1) * offsetX;
+  const totalHeight = baseIconSize + 2; // ارتفاع نهایی فقط یک پیکسل بیشتر از ارتفاع یک آیکون باشد
+
+  // ساختار HTML هر آیکون در موقعیت مناسب داخل محفظه (با اضافه کردن 1 پیکسل برای فاصله حاشیه)
+  const iconsHtml = currencies.map((currency, index) => {
+    const left = index * offsetX;
+    const top = 0;
+    return `<div style="position: absolute; left: ${left + 1}px; top: ${top + 1}px; z-index: ${currencies.length - index};">
+              ${currencyIcons[currency].options.html}
+            </div>`;
   }).join('');
+  
+  // ساخت محفظه نهایی با حاشیه 1 پیکسلی و پس‌زمینه قرمز
+  const containerHtml = `
+    <div style="
+      position: relative;
+      width: ${totalWidth + 2}px;
+      height: ${totalHeight}px;
+      border: 1px solid #f00;
+      border-radius: 12px;
+      background-color: red;
+    ">
+      ${iconsHtml}
+    </div>
+  `;
+
   return new L.DivIcon({
-    html: `<div style="position: relative; width: 40px; height: 40px;">${iconHtml}</div>`,
+    html: containerHtml,
     className: 'custom-icon',
-    iconSize: [40, 40],
-    iconAnchor: [20, 20],
+    iconSize: [totalWidth + 2, totalHeight],
+    iconAnchor: [(totalWidth + 2) / 2, totalHeight / 2],
   });
 };
+
+
 
 const UserLocationMarker = ({ onLocate }) => {
   const [position, setPosition] = useState(null);

@@ -28,7 +28,7 @@ const StoreCard = ({ store, onClick }) => {
   const openStatus = store.openHours && store.openHours[store.currentDay] ? `باز تا ${store.openHours[store.currentDay]}` : 'تعطیل';
 
   return (
-    <Box onClick={onClick} style={{ fontFamily: 'IRANSansWeb', cursor: 'pointer' }}>
+    <Box onClick={() => onClick(store)} style={{ fontFamily: 'IRANSansWeb', cursor: 'pointer' }}>
       <Card style={{ display: 'flex', flexDirection: 'row-reverse', boxShadow: 'none' }}>
         <CardActionArea style={{ display: 'flex', flexDirection: 'row-reverse', alignItems: 'center' }}>
           <CardMedia

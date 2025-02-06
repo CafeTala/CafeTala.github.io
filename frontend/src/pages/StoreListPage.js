@@ -6,7 +6,7 @@ import StoreCard from '../components/StoreCard';
 import useStores from '../hooks/useStores';
 import faTexts from '../locales/fa.json';
 import dynamic from 'next/dynamic';
-import FilterListIcon from '@mui/icons-material/FilterList';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
 const Map = dynamic(() => import('../components/Map'), { ssr: false });
 
@@ -39,7 +39,7 @@ const StoreListPage = () => {
 
   return (
     <Container style={{ fontFamily: 'IRANSansWeb', direction: 'rtl', textAlign: 'right', padding: 0, height: '100vh', overflow: 'auto' }}>
-      <Box display="flex" alignItems="center" p={2}>
+      <Box display="flex" alignItems="center" p={1.5} height={40}>
         <TextField
           placeholder="جستجو"
           variant="outlined"
@@ -51,8 +51,10 @@ const StoreListPage = () => {
                   <SearchIcon />
                 </InputAdornment>
                 <Divider orientation="vertical" flexItem />
-                <Button variant="contained" style={{ marginLeft: 8, backgroundColor: 'transparent', border: 'none', color: 'black' }} startIcon={<FilterListIcon style={{ color: 'black' }} />}>
-                  فیلترها
+                <Button variant="contained" style={{ backgroundColor: 'transparent', border: 'none', boxShadow: 'none', color: 'black', padding: 10, margin: '5 0' }} endIcon={<FilterAltIcon style={{ color: 'black' }} />}>
+                  <Box style={{ padding: '3px', margin: '0 8px' }}>
+                    فیلترها
+                  </Box>
                 </Button>
               </>
             ),

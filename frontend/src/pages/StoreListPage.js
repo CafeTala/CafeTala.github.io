@@ -11,6 +11,8 @@ import StoreDetails from '../components/StoreDetails';
 
 const Map = dynamic(() => import('../components/Map'), { ssr: false });
 
+const separatorSvg = "data:image/svg+xml;charset=utf-8,<svg width='120' height='16' viewBox='0 0 120 16' xmlns='http://www.w3.org/2000/svg'><rect x='0' y='0' width='120' height='16' stroke='%23DDD' stroke-width='1' fill='none'/><line x1='10' y1='8' x2='110' y2='8' stroke='%23555' stroke-width='1.5' stroke-linecap='round'/><g transform='translate(60,8)'><path d='M-5 -2 L0 -6 L5 -2 Z' fill='%23555'/><path d='M-5 2 L0 6 L5 2 Z' fill='%23555'/></g></svg>";
+
 const StoreListPage = () => {
   const { stores, loading, error } = useStores();
   const router = useRouter();
@@ -73,6 +75,9 @@ const StoreListPage = () => {
       </Box>
       <Box style={{ height: mapExpanded ? '85vh' : '30vh', transition: 'height 0.3s ease-in-out' }}>
         <Map stores={stores} onInteraction={handleMapInteraction} mapExpanded={mapExpanded} />
+      </Box>
+      <Box display="flex" justifyContent="center" my={2}>
+        <img src={separatorSvg} alt="separator" />
       </Box>
       <Box mt={0} style={{ transition: 'margin-top 0.3s ease-in-out' }}>
         {selectedStore ? (

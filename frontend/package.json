@@ -6,9 +6,9 @@
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev -p 80",
     "dev:mock": "cross-env NODE_OPTIONS='--inspect' NEXT_PUBLIC_MOCK_AXIOS=true next dev -p 80",
-    "build": "next build",
+    "build": "cross-env NEXT_PUBLIC_MOCK_AXIOS=true next build",
     "start2": "next start -p 80",
-    "start": "cross-env NODE_OPTIONS='--inspect' NEXT_PUBLIC_MOCK_AXIOS=true next start -p 80",
+    "start": "cross-env NODE_OPTIONS='--inspect' NEXT_PUBLIC_MOCK_AXIOS=true next dev -p 80",
     "lint": "next lint",
     "mock": "jest --config jest.config.js --watchAll",
     "test": "jest",
@@ -17,6 +17,7 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^6.4.3",
     "@mui/material": "^6.4.3",
     "axios": "^1.7.9",
     "cross-env": "^7.0.3",

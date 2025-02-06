@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Container, Box, Typography, CircularProgress, Grid } from '@mui/material';
+import { Container, Box, Typography, CircularProgress, Grid, TextField, InputAdornment, Divider, Button } from '@mui/material';
 import { useRouter } from 'next/router';
+import SearchIcon from '@mui/icons-material/Search';
 import StoreCard from '../components/StoreCard';
 import useStores from '../hooks/useStores';
 import faTexts from '../locales/fa.json';
 import dynamic from 'next/dynamic';
+import FilterListIcon from '@mui/icons-material/FilterList';
 
 const Map = dynamic(() => import('../components/Map'), { ssr: false });
 
@@ -37,10 +39,30 @@ const StoreListPage = () => {
 
   return (
     <Container style={{ fontFamily: 'IRANSansWeb', direction: 'rtl', textAlign: 'right', padding: 0, height: '100vh', overflow: 'auto' }}>
-      <Box style={{ height: mapExpanded ? '85vh' : '30vh', transition: 'height 0.3s ease-in-out' }}>
-        <Map stores={stores} onInteraction={handleMapInteraction} mapExpanded={mapExpanded} /> {/* Pass mapExpanded */}
+      <Box display="flex" alignItems="center" p={2}>
+        <TextField
+          placeholder="جستجو"
+          variant="outlined"
+          fullWidth
+          InputProps={{
+            endAdornment: (
+              <>
+                <InputAdornment position="end">
+                  <SearchIcon />
+                </InputAdornment>
+                <Divider orientation="vertical" flexItem />
+                <Button variant="contained" style={{ marginLeft: 8, backgroundColor: 'transparent', border: 'none', color: 'black' }} startIcon={<FilterListIcon style={{ color: 'black' }} />}>
+                  فیلترها
+                </Button>
+              </>
+            ),
+          }}
+        />
       </Box>
-      <Box mt={0} style={{ transition: 'margin-top 0.3s ease-in-out' }}> {/* Remove margin-top calculation */}
+      <Box style={{ height: mapExpanded ? '85vh' : '30vh', transition: 'height 0.3s ease-in-out' }}>
+        <Map stores={stores} onInteraction={handleMapInteraction} mapExpanded={mapExpanded} />
+      </Box>
+      <Box mt={0} style={{ transition: 'margin-top 0.3s ease-in-out' }}>
         <Typography variant="h4" gutterBottom>
           {faTexts.store_list}
         </Typography>

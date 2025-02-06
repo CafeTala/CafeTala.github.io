@@ -159,7 +159,7 @@ const MapComponent = ({ stores, onInteraction, mapExpanded, onStoreClick }) => {
   };
 
   return (
-    <div style={{ height: '100%', width: '100%' }} onTouchEnd={handleMapInteraction} onWheel={handleMapInteraction} onBlur={handleMapInteraction}> {/* Add interaction handlers */}
+    <div style={{ height: '100%', width: '100%' }} onTouchEnd={handleMapInteraction} onWheel={handleMapInteraction}> {/* Add interaction handlers */}
       <MapContainer center={[36.2880, 59.6150]} zoom={13} style={{ height: '100%', width: '100%' }} attributionControl={false} zoomControl={false}>
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"

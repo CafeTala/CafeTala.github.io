@@ -57,7 +57,7 @@ const StoreListPage = () => {
             display: none;
           }
         `}</style>
-        <Box display="flex" alignItems="center" p={1.5} height={40}>
+        <Box display="flex" alignItems="center" p={1.5} height={40} style={{ position: 'sticky', top: 0, backgroundColor: 'white', zIndex: 1000 }}>
           <TextField
             placeholder="جستجو"
             variant="outlined"

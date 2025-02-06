@@ -151,8 +151,14 @@ const MapComponent = ({ stores, onInteraction, mapExpanded, onStoreClick }) => {
     }
   };
 
+  const handleStoreClick = (store) => {
+    console.log({store})
+      onStoreClick(store);
+      onInteraction(false);
+  };
+
   return (
-    <div style={{ height: '100%', width: '100%' }} onClick={handleMapInteraction} onTouchStart={handleMapInteraction} onWheel={handleMapInteraction} onBlur={handleMapInteraction}> {/* Add interaction handlers */}
+    <div style={{ height: '100%', width: '100%' }} onTouchEnd={handleMapInteraction} onWheel={handleMapInteraction} onBlur={handleMapInteraction}> {/* Add interaction handlers */}
       <MapContainer center={[36.2880, 59.6150]} zoom={13} style={{ height: '100%', width: '100%' }} attributionControl={false} zoomControl={false}>
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
@@ -164,11 +170,7 @@ const MapComponent = ({ stores, onInteraction, mapExpanded, onStoreClick }) => {
             position={[store.location.latitude, store.location.longitude]}
             icon={combinedCurrencyIcon(store.supportedCurrencies)}
             eventHandlers={{
-              click: () => {
-                if (onStoreClick) {
-                  onStoreClick(store);
-                }
-              },
+              click: () => handleStoreClick(store),
             }}
           >
             <Popup>

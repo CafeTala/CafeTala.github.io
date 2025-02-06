@@ -20,10 +20,12 @@ const StoreListPage = () => {
   const [selectedStore, setSelectedStore] = useState(null);
 
   const handleMapInteraction = (expand) => {
+    console.log('clicked');
     setMapExpanded(expand);
   };
 
   const handleStoreClick = (store) => {
+    console.log('Store clicked in StoreListPage:', store);
     setSelectedStore(store);
   };
 

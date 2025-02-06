@@ -4,7 +4,7 @@
   "description": "Frontend interface for Cafe Tala",
   "main": "src/index.js",
   "scripts": {
-    "dev": "NODE_OPTIONS='--inspect' next dev -p 80",
+    "dev": "cross-env NODE_OPTIONS='--inspect' next dev -p 80",
     "dev:mock": "cross-env NODE_OPTIONS='--inspect' NEXT_PUBLIC_MOCK_AXIOS=true next dev -p 80",
     "build": "cross-env NEXT_PUBLIC_MOCK_AXIOS=true next build",
     "start2": "next start -p 80",
@@ -37,8 +37,6 @@
     "json-server": "^0.16.3",
     "msw": "^0.35.0"
   },
-  "author": "",
-  "license": "ISC",
   "msw": {
     "workerDirectory": "public"
   }

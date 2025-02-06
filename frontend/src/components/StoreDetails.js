@@ -7,6 +7,27 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import faTexts from '../locales/fa.json';
 
+const currencyIcons = {
+  IRR: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="10" fill="#4CAF50" />
+      <text x="12" y="16" textAnchor="middle" fill="white" fontSize="12" fontFamily="Arial">T</text>
+    </svg>
+  ),
+  USD: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="10" fill="#2196F3" />
+      <text x="12" y="16" textAnchor="middle" fill="white" fontSize="12" fontFamily="Arial">$</text>
+    </svg>
+  ),
+  GOLD: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="10" fill="#FFD700" />
+      <text x="12" y="16" textAnchor="middle" fill="white" fontSize="12" fontFamily="Arial">G</text>
+    </svg>
+  )
+};
+
 const StoreDetails = ({ store, onBack }) => {
   return (
     <Paper elevation={3} style={{ fontFamily: 'IRANSansWeb', direction: 'rtl', textAlign: 'right', padding: 16, margin: 16 }}>
@@ -20,11 +41,13 @@ const StoreDetails = ({ store, onBack }) => {
         {store.type === 'physical' ? `فیزیکی - ${store.location.neighborhood}` : `مجازی - ${store.contact.website}`}
       </Typography>
       <Typography variant="body1" gutterBottom style={{ marginBottom: 8 }}>
-        {faTexts.supported_currencies}: {store.supportedCurrencies.join(', ')}
+        {faTexts.supported_currencies}: {store.supportedCurrencies.map(currency => currencyIcons[currency] || currency).reduce((prev, curr) => [prev, ' ', curr])}
       </Typography>
       <Box display="flex" alignItems="center" style={{ marginBottom: 8 }}>
         <PhoneIcon style={{ marginLeft: 8 }} />
-        <Typography variant="body1">{store.contact.phone}</Typography>
+        <a href={`tel:${store.contact.phone}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+          <Typography variant="body1">{store.contact.phone}</Typography>
+        </a>
       </Box>
       <Box display="flex" alignItems="center" style={{ marginBottom: 8, padding: '8px 0' }}>
         <Tooltip title={store.contact.email}>

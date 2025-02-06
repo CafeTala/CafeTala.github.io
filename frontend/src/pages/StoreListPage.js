@@ -40,7 +40,7 @@ const StoreListPage = () => {
       <Box style={{ height: mapExpanded ? '70vh' : '30vh', transition: 'height 0.3s ease-in-out' }}>
         <Map stores={stores} onInteraction={handleMapInteraction} />
       </Box>
-      <Box mt={5} style={{ marginTop: mapExpanded ? '40vh' : '5vh', transition: 'margin-top 0.3s ease-in-out' }}>
+      <Box mt={0} style={{ transition: 'margin-top 0.3s ease-in-out' }}>
         <Typography variant="h4" gutterBottom>
           {faTexts.store_list}
         </Typography>

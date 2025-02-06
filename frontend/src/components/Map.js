@@ -146,14 +146,14 @@ const MapComponent = ({ stores, onInteraction, mapExpanded }) => { // Add mapExp
     }
   }, [userPosition, stores]);
 
-  const handleMapClick = () => {
+  const handleMapInteraction = () => {
     if (onInteraction) {
       onInteraction();
     }
   };
 
   return (
-    <div style={{ height: '100%', width: '100%' }} onClick={handleMapClick}> {/* Add onClick handler */}
+    <div style={{ height: '100%', width: '100%' }} onClick={handleMapInteraction} onTouchStart={handleMapInteraction} onWheel={handleMapInteraction}> {/* Add interaction handlers */}
       <MapContainer center={[36.2880, 59.6150]} zoom={13} style={{ height: '100%', width: '100%' }} attributionControl={false} zoomControl={false}>
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"

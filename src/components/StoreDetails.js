@@ -34,7 +34,7 @@ const StoreDetails = ({ store, onBack }) => {
       <Button onClick={onBack} variant="contained" color="primary" style={{ marginBottom: 16 }}>
         {faTexts.back_to_list}
       </Button>
-      <Typography variant="h4" gutterBottom style={{ fontWeight: 'bold', color: '#3f51b5' }}>
+      <Typography variant="h4" gutterBottom style={{ fontWeight: 'bold' }}>
         {store.name}
       </Typography>
       <Typography variant="body1" gutterBottom style={{ marginBottom: 8 }}>
